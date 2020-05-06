@@ -1,4 +1,5 @@
-package test;
+package server;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,20 +18,20 @@ import java.util.Date;
  *     3. 重定向是两次请求。不能使用request对象来共享数据
  */
 
-@WebServlet("/responseDemo1")
-public class ResponseDemo1 extends HttpServlet {
+@WebServlet("/server")
+class Accept extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(new Date());
 
-        System.out.println(request.getHeader("identity"));
-        Controller c=new Controller();
-        c.parse(request.getHeader("s"));
-//        c.getResult();
-
-        OutputStream os=response.getOutputStream();
-        os.write(c.getResult().getBytes());
-        os.flush();
-        os.close();
+//        System.out.println(request.getHeader("identity"));
+//        Controller c=new Controller();
+//        c.parse(request.getHeader("s"));
+////        c.getResult();
+//
+//        OutputStream os=response.getOutputStream();
+//        os.write(c.getResult().getBytes());
+//        os.flush();
+//        os.close();
 
     }
 

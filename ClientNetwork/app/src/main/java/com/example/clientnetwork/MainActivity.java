@@ -7,14 +7,24 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 注意事项：
@@ -37,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+//        createFastjson();
+
         btn = findViewById(R.id.toSever);//绑定ID
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,17 +62,76 @@ public class MainActivity extends AppCompatActivity {
                 }).start();//启动子线程
             }
         });
+
     }
+
+//    public void createFastjson(){
+//        // 保证创建一个新文件
+//        File file = new File(jsonPath);
+//        System.out.println(file.exists());
+//
+//        if (file.exists()) { // 如果已存在,删除旧文件
+//            file.delete();
+//            try {
+//                file.createNewFile();
+//                System.out.println("---------------");
+//            } catch (IOException e) {
+//                System.out.println("1111111111111111111");
+//            }
+//        }else {
+//            try {
+//                file.createNewFile();
+//            } catch (IOException e) {
+//                System.out.println("22222222222222222");
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+////        System.out.println(11111);
+////        JSONObject object = new JSONObject();
+////        //string
+////        object.put("string","string");
+////        //int
+////        object.put("int",2);
+////        //boolean
+////        object.put("boolean",true);
+////        //array
+////        List<Integer> integers = Arrays.asList(1,2,3);
+////        object.put("list",integers);
+////        //null
+////        object.put("null",null);
+////        System.out.println(object);
+////
+////
+////        Writer write = null;
+////        try {
+////            write = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
+////            write.write(object.toJSONString());
+////            write.close();
+////        } catch (UnsupportedEncodingException e) {
+//////            e.printStackTrace();
+////        } catch (FileNotFoundException e) {
+//////            e.printStackTrace();
+////        }catch (IOException e) {
+//////            e.printStackTrace();
+////        }
+//
+//    }
+
 
     private void getwebinfo() {
         try {
             //1,找水源--创建URL
 //            URL url = new URL("https://www.baidu.com/");//放网站
-            URL url = new URL("http://10.0.2.2:8080/http://localhost:8080/server_war_exploded//server");//放网站
+            URL url = new URL("http://10.0.2.2:8080/test_war_exploded/responseDemo1");//放网站
             //2,开水闸--openConnection
             HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
 
+            //设置属性
             httpURLConnection.addRequestProperty("identity","student");
+            httpURLConnection.addRequestProperty("operate","queryAssignment");
+            httpURLConnection.addRequestProperty("studentNumber","001");
 
             //3，建管道--InputStream
             InputStream inputStream = httpURLConnection.getInputStream();
