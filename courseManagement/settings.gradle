@@ -1,0 +1,2 @@
+rootProject.name='courseManagement'
+include ':app'
