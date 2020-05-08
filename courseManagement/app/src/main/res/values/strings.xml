@@ -2,13 +2,19 @@
     <string name="app_name">courseManagement</string>
 
     <!-- Strings related to login -->
-    <string name="shared_preferences_file_name">sp_login2
- </string >
-    <string name="login_account_name">login_account_name
- </string >
-    <string name="login_password">login_password
- </string >
-    <string name="login_remember_password">login_remember_password
-  </string >
+    <string name="shared_preferences_file_name">sp_login2</string >
+    <string name="login_account_name">login_account_name</string >
+    <string name="login_password">login_password</string >
+    <string name="login_remember_password">login_remember_password</string >
+    <string name="sing_up_account">account</string>
+    <string name="sing_up_password">password</string>
+    <string name="sing_up_button">sgin up and login</string>
+
+    <string name="logined">logined</string>
+
+    <string name="identity">identity</string>
+
+
+<!--    //////////////////////////////////////////////-->
 
 </resources>

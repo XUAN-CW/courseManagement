@@ -3,9 +3,11 @@ package com.example.coursemanagement;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.text.InputType;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.net.HttpURLConnection;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,13 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        readPassword();
-        passwordVisible();
-        loginAndSavePassword();
-        signUp();
+        readAccountAndPassword();
+        controlPasswordVisible();
+        controlSavePasswordAndLogin();
+        goToSignUpLayout();
     }
 
-    private void readPassword(){
+    private void readAccountAndPassword(){
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
         String accountKey = getResources().getString(R.string.login_account_name);
         String passwordKey = getResources().getString(R.string.login_password);
@@ -60,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         cbRememberPwd.setChecked(rememberPassword);
     }
 
-    private void passwordVisible(){
+    private void controlPasswordVisible(){
         //获取 id 为  iv_pwd_switch 的 ImageView 控件
         final ImageView ivPwdSwitch = (ImageView)findViewById(R.id.iv_pwd_switch);
 //        //看看是不是真的获取到了 ImageView 控件
@@ -95,48 +100,96 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void loginAndSavePassword(){
+    private void controlSavePasswordAndLogin(){
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                System.out.println(etAccount.getText().toString());
+//                System.out.println(etPwd.getText().toString());
+                if(etAccount.getText().toString().equals("")){
+                    Toast.makeText(MainActivity.this,
+                            "请输入账号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (etPwd.getText().toString().equals("")){
+                    Toast.makeText(MainActivity.this,
+                            "请输入密码", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                String spFileName = getResources()
-                        .getString(R.string.shared_preferences_file_name);
-                System.out.println(spFileName);
+
+                String spFileName = getResources().getString(R.string.shared_preferences_file_name);
                 String accountKey = getResources()
                         .getString(R.string.login_account_name);
-                String passwordKey = getResources()
-                        .getString(R.string.login_password);
+                String passwordKey = getResources().getString(R.string.login_password);
                 String rememberPasswordKey = getResources()
                         .getString(R.string.login_remember_password);
 
-                SharedPreferences spFile = getSharedPreferences(
-                        spFileName,
-                        Context.MODE_PRIVATE);
+                SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = spFile.edit();
 
                 //账号一定会保存，账号是访问的网络的依据
-                String account = etAccount.getText().toString();
-                editor.putString(accountKey,account).apply();
-
+                editor.putString(accountKey,etAccount.getText().toString()).apply();
                 if (cbRememberPwd.isChecked()) {
-                    String password = etPwd.getText().toString();
-                    editor.putString(passwordKey,password).apply();
+                    editor.putString(passwordKey,etPwd.getText().toString()).apply();
                     editor.putBoolean(rememberPasswordKey, true).apply();
                 } else {
                     editor.remove(passwordKey).apply();
                     editor.remove(rememberPasswordKey).apply();
                 }
+
+                ///////////// 下面是login部分 //////////////////////////////
+
+                new Thread(new Runnable() {//创建子线程
+                    @Override
+                    public void run() {
+                        HttpURLConnection loginResult = Network.login(etAccount.getText().toString(),
+                                etPwd.getText().toString());
+                        if (null != loginResult) {
+                            if (loginResult.getHeaderField("status").equals("OK")) {
+                                String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+                                SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = spFile.edit();
+                                //保存身份
+                                editor.putString("identity", loginResult.getHeaderField("identity")).apply();
+                                //设置已登录
+                                editor.putBoolean(getResources().getString(R.string.logined),true).apply();
+                            } else {
+                            /*
+                               多线程中使用 Toast
+                               方法来源：https://www.cnblogs.com/liyiran/p/4635676.html
+                               解决方法：
+                               在 Toast 前添加：
+                                   Looper.prepare();
+                               在 Toast 后添加：
+                                   Looper.loop();
+                             */
+                                Looper.prepare();
+                                Toast.makeText(MainActivity.this,
+                                        loginResult.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this,
+                                    "联网失败", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                        }
+                    }
+                }).start();//启动子线程
             }
         });
     }
 
-    private void signUp(){
+    private void goToSignUpLayout(){
         tv_signUp=(TextView)findViewById(R.id.tv_sign_up);
         tv_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println(11111);
+
+                //这个地方的 Intent 对象有点像 request 对象
+                Intent intent = new Intent(MainActivity.this, SignUp.class);
+                //调用 activity
+                startActivity(intent);
             }
         });
     }
