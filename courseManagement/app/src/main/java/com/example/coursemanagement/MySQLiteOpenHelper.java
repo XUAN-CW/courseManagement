@@ -14,8 +14,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     NewsContract.NewsEntry._ID + " INTEGER PRIMARY KEY, " +
                     NewsContract.NewsEntry.COLUMN_NAME_TITLE + " VARCHAR(200), " +
                     NewsContract.NewsEntry.COLUMN_NAME_AUTHOR + " VARCHAR(100), " +
-                    NewsContract.NewsEntry.COLUMN_NAME_CONTENT + " TEXT, " +
-                    NewsContract.NewsEntry.COLUMN_NAME_IMAGE + " VARCHAR(100) " +
+                    NewsContract.NewsEntry.COLUMN_NAME_CONTENT + " TEXT " +
+//                    NewsContract.NewsEntry.COLUMN_NAME_IMAGE + " VARCHAR(100) " +
                     ")" ;
 
     private static final String SQL_DELETE_ENTRIES =
@@ -65,8 +65,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     authors[i]);
             values.put(NewsContract.NewsEntry.COLUMN_NAME_CONTENT ,
                     contents[i]);
-            values.put(NewsContract.NewsEntry.COLUMN_NAME_IMAGE ,
-                    images.getString(i));
+//            values.put(NewsContract.NewsEntry.COLUMN_NAME_IMAGE ,
+//                    images.getString(i));
 
             long r = sqLiteDatabase.insert(
                     NewsContract.NewsEntry.TABLE_NAME ,

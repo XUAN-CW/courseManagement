@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class StudentHomework extends AppCompatActivity {
     SQLiteDatabase db=null;
     MySQLiteOpenHelper myDbHlper = null;
 
@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_homework);
-         myDbHlper = new MySQLiteOpenHelper(MainActivity.this);
+         myDbHlper = new MySQLiteOpenHelper(StudentHomework.this);
         db = myDbHlper.getReadableDatabase();
         Cursor cursor = db.query(
                 NewsContract.NewsEntry.TABLE_NAME ,
@@ -41,27 +41,27 @@ public class MainActivity extends AppCompatActivity {
                 NewsContract.NewsEntry.COLUMN_NAME_TITLE);
         int authorIndex = cursor.getColumnIndex(
                 NewsContract.NewsEntry.COLUMN_NAME_AUTHOR);
-        int imageIndex = cursor.getColumnIndex(
-                NewsContract.NewsEntry.COLUMN_NAME_IMAGE);
+//        int imageIndex = cursor.getColumnIndex(
+//                NewsContract.NewsEntry.COLUMN_NAME_IMAGE);
 
         while (cursor.moveToNext()) {
             News news = new News();
 
             String title = cursor.getString(titleIndex);
             String author = cursor.getString(authorIndex);
-            String image = cursor.getString(imageIndex);
+//            String image = cursor.getString(imageIndex);
 
-            Bitmap bitmap = BitmapFactory.decodeStream(
-                    getClass().getResourceAsStream("/" + image));
+//            Bitmap bitmap = BitmapFactory.decodeStream(
+//                    getClass().getResourceAsStream("/" + image));
 
             news.setTitle(title);
             news.setmAuthor(author);
-            news.setBitmap(bitmap);
+//            news.setBitmap(bitmap);
             newsList.add(news);
 
         }
         NewsAdapter newsAdapter = new NewsAdapter(
-                MainActivity.this,
+                StudentHomework.this,
                 R.layout.list_item,
                 newsList);
         lvNewsList.setAdapter(newsAdapter);
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         //对于每一条信息，使用 simple_list_item_1 布局
         //传递数据
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                MainActivity.this, android.R.layout.simple_list_item_1, titles);
+                StudentHomework.this, android.R.layout.simple_list_item_1, titles);
         //列表使用 lv_news_list 布局
         ListView lvNewsList = findViewById(R.id.lv_news_list);
         //数据传递给ListView,这时需要借助适配器(Adapter)来完成
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         //创建 SimpleAdapter
-        SimpleAdapter simpleAdapter = new SimpleAdapter(MainActivity.this ,
+        SimpleAdapter simpleAdapter = new SimpleAdapter(StudentHomework.this ,
                 dataList , android.R.layout.simple_list_item_2 ,
                 new String[]{NEWS_TITLE , NEWS_AUTHOR},
                 new int[]{android.R.id.text1 , android.R.id.text2});
@@ -140,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
             news.setTitle(titles[i]);
             news.setmAuthor(authors[i]);
             int ResourceId = images.getResourceId(i, 0);
-            news.setmImageId(ResourceId);
+//            news.setmImageId(ResourceId);
             newsList.add(news);
         }
         //设置 newsAdapter
-        NewsAdapter newsAdapter = new NewsAdapter(MainActivity.this,
+        NewsAdapter newsAdapter = new NewsAdapter(StudentHomework.this,
                 R.layout.list_item, newsList);
         //设置为 lv_news_list 布局
         ListView lvNewsList = findViewById(R.id.lv_news_list);
