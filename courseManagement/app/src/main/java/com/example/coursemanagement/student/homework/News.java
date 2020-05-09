@@ -3,6 +3,91 @@ package com.example.coursemanagement.student.homework;
 import android.graphics.Bitmap;
 
 public class News {
+    private String homeworkTitle;
+    private String homeworkContent;
+    private String subject;
+    private String startTime;
+    private String deadline;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     private String mTitle;
     private String mAuthor;
     private String mContent;

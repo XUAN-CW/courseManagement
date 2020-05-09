@@ -49,6 +49,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     private void initDb(SQLiteDatabase sqLiteDatabase) {
         Resources resources = mContext.getResources();
+
+
+
         String[] titles = resources.getStringArray(R.array.titles);
         String[] authors = resources.getStringArray(R.array.authors);
         String[] contents = resources.getStringArray(R.array.titles);
