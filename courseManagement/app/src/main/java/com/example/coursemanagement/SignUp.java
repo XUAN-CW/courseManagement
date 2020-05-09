@@ -150,7 +150,7 @@ public class SignUp extends AppCompatActivity {
 //                            Looper.loop();
 
                                 //回到登录页面
-                                Intent intent = new Intent(SignUp.this, MainActivity.class);
+                                Intent intent = new Intent(SignUp.this, Login.class);
                                 //调用 activity
                                 startActivity(intent);
 

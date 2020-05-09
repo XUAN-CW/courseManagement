@@ -20,7 +20,7 @@ import android.widget.Toast;
 
 import java.net.HttpURLConnection;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     private Boolean bPwdSwitch = false;
     private EditText etPwd;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login);
         readAccountAndPassword();
         controlPasswordVisible();
         controlSavePasswordAndLogin();
@@ -107,12 +107,12 @@ public class MainActivity extends AppCompatActivity {
 //                System.out.println(etAccount.getText().toString());
 //                System.out.println(etPwd.getText().toString());
                 if(etAccount.getText().toString().equals("")){
-                    Toast.makeText(MainActivity.this,
+                    Toast.makeText(Login.this,
                             "请输入账号", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (etPwd.getText().toString().equals("")){
-                    Toast.makeText(MainActivity.this,
+                    Toast.makeText(Login.this,
                             "请输入密码", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -165,12 +165,12 @@ public class MainActivity extends AppCompatActivity {
                                    Looper.loop();
                              */
                                 Looper.prepare();
-                                Toast.makeText(MainActivity.this,
+                                Toast.makeText(Login.this,
                                         loginResult.getHeaderField("status"), Toast.LENGTH_SHORT).show();
                                 Looper.loop();
                             }
                         } else {
-                            Toast.makeText(MainActivity.this,
+                            Toast.makeText(Login.this,
                                     "联网失败", Toast.LENGTH_SHORT).show();
                             Looper.loop();
                         }
@@ -187,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 //这个地方的 Intent 对象有点像 request 对象
-                Intent intent = new Intent(MainActivity.this, SignUp.class);
+                Intent intent = new Intent(Login.this, SignUp.class);
                 //调用 activity
                 startActivity(intent);
             }
