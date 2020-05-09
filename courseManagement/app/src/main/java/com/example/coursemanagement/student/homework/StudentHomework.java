@@ -28,47 +28,53 @@ public class StudentHomework extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_homework);
+        System.out.println(222222);
          myDbHlper = new MySQLiteOpenHelper(StudentHomework.this);
+        System.out.println(333333);
         db = myDbHlper.getReadableDatabase();
-        Cursor cursor = db.query(
-                NewsContract.NewsEntry.TABLE_NAME,
-                null , null , null , null , null , null);
+        System.out.println(55555);
 
 
-        List<News> newsList = new ArrayList<>();
-        ListView lvNewsList = findViewById(R.id.lv_news_list);
-        int titleIndex = cursor.getColumnIndex(
-                NewsContract.NewsEntry.COLUMN_NAME_TITLE);
-        int authorIndex = cursor.getColumnIndex(
-                NewsContract.NewsEntry.COLUMN_NAME_AUTHOR);
-//        int imageIndex = cursor.getColumnIndex(
-//                NewsContract.NewsEntry.COLUMN_NAME_IMAGE);
 
-        while (cursor.moveToNext()) {
-            News news = new News();
-
-            String title = cursor.getString(titleIndex);
-            String author = cursor.getString(authorIndex);
-//            String image = cursor.getString(imageIndex);
-
-//            Bitmap bitmap = BitmapFactory.decodeStream(
-//                    getClass().getResourceAsStream("/" + image));
-
-            news.setTitle(title);
-            news.setmAuthor(author);
-//            news.setBitmap(bitmap);
-            newsList.add(news);
-
-        }
-        NewsAdapter newsAdapter = new NewsAdapter(
-                StudentHomework.this,
-                R.layout.list_item,
-                newsList);
-        lvNewsList.setAdapter(newsAdapter);
-
-//        showTitle();
-//        SimpleAdapterDemo();
-//        customAdapter();
+//        Cursor cursor = db.query(
+//                NewsContract.NewsEntry.HOMEWORK_TABLE,
+//                null , null , null , null , null , null);
+//
+//
+//        List<News> newsList = new ArrayList<>();
+//        ListView lvNewsList = findViewById(R.id.lv_news_list);
+//        int titleIndex = cursor.getColumnIndex(
+//                NewsContract.NewsEntry.COLUMN_NAME_TITLE);
+//        int authorIndex = cursor.getColumnIndex(
+//                NewsContract.NewsEntry.COLUMN_NAME_AUTHOR);
+////        int imageIndex = cursor.getColumnIndex(
+////                NewsContract.NewsEntry.COLUMN_NAME_IMAGE);
+//
+//        while (cursor.moveToNext()) {
+//            News news = new News();
+//
+//            String title = cursor.getString(titleIndex);
+//            String author = cursor.getString(authorIndex);
+////            String image = cursor.getString(imageIndex);
+//
+////            Bitmap bitmap = BitmapFactory.decodeStream(
+////                    getClass().getResourceAsStream("/" + image));
+//
+//            news.setTitle(title);
+//            news.setmAuthor(author);
+////            news.setBitmap(bitmap);
+//            newsList.add(news);
+//
+//        }
+//        NewsAdapter newsAdapter = new NewsAdapter(
+//                StudentHomework.this,
+//                R.layout.list_item,
+//                newsList);
+//        lvNewsList.setAdapter(newsAdapter);
+//
+////        showTitle();
+////        SimpleAdapterDemo();
+////        customAdapter();
     }
 
 

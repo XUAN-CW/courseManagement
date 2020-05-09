@@ -37,33 +37,6 @@ public final class Network {
         return httpURLConnection;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public static HttpURLConnection login(final String account, final String password){
         HttpURLConnection httpURLConnection;
         httpURLConnection = communicate(new StringFlow(){
@@ -91,6 +64,17 @@ public final class Network {
         return httpURLConnection;
     }
 
+    public static HttpURLConnection findStudentAssignment(final String studentNumber){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","find student assignment");
+                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
+            }
+        });
+        return httpURLConnection;
+    }
 
 
 }
