@@ -1,4 +1,4 @@
-package com.example.coursemanagement;
+package com.example.coursemanagement.student.homework;
 
 import android.graphics.Bitmap;
 

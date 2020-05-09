@@ -1,16 +1,16 @@
-package com.example.coursemanagement;
+package com.example.coursemanagement.student.homework;
 
 import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.coursemanagement.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +31,7 @@ public class StudentHomework extends AppCompatActivity {
          myDbHlper = new MySQLiteOpenHelper(StudentHomework.this);
         db = myDbHlper.getReadableDatabase();
         Cursor cursor = db.query(
-                NewsContract.NewsEntry.TABLE_NAME ,
+                NewsContract.NewsEntry.TABLE_NAME,
                 null , null , null , null , null , null);
 
 

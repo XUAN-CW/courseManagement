@@ -1,4 +1,4 @@
-package com.example.coursemanagement;
+package com.example.coursemanagement.student.homework;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,13 +7,15 @@ import android.content.res.TypedArray;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.example.coursemanagement.R;
+
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     private static final String SQL_CREATE_ENTRIES =
             "CREATE TABLE " + NewsContract.NewsEntry.TABLE_NAME + " (" +
                     NewsContract.NewsEntry._ID + " INTEGER PRIMARY KEY, " +
-                    NewsContract.NewsEntry.COLUMN_NAME_TITLE + " VARCHAR(200), " +
-                    NewsContract.NewsEntry.COLUMN_NAME_AUTHOR + " VARCHAR(100), " +
+                    NewsContract.NewsEntry.COLUMN_NAME_TITLE + " VARCHAR(50), " +
+                    NewsContract.NewsEntry.COLUMN_NAME_AUTHOR + " VARCHAR(50), " +
                     NewsContract.NewsEntry.COLUMN_NAME_CONTENT + " TEXT " +
 //                    NewsContract.NewsEntry.COLUMN_NAME_IMAGE + " VARCHAR(100) " +
                     ")" ;
@@ -50,12 +52,12 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         String[] titles = resources.getStringArray(R.array.titles);
         String[] authors = resources.getStringArray(R.array.authors);
         String[] contents = resources.getStringArray(R.array.titles);
-        TypedArray images = resources.obtainTypedArray(R.array.images);
+//        TypedArray images = resources.obtainTypedArray(R.array.images);
 
         int length = 0;
         length = Math.min(titles.length , authors.length);
         length = Math.min(length , contents.length);
-        length = Math.min(length , images.length());
+//        length = Math.min(length , images.length());
 
         for (int i = 0; i < length; i++) {
             ContentValues values = new ContentValues();

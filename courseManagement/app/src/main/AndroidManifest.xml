@@ -13,7 +13,7 @@
         <activity android:name=".Login"></activity>
 
 <!--        <activity android:name=".Login"></activity>-->
-        <activity android:name=".StudentHomework">
+        <activity android:name=".student.homework.StudentHomework">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
