@@ -88,10 +88,21 @@ public class StudentHomework extends AppCompatActivity  implements AdapterView.O
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+
+
                 //提示当前行的应用名称
                 String appName = newsList.get(position).getHomeworkTitle();
                 //提示
                 Toast.makeText(StudentHomework.this, appName, 0).show();
+
+
+
+                //////////////////点击移除的代码如下////////////////////
+                newsList.remove(position);
+                //更新列表
+                lvNewsList.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
+                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
+                ////////////////////////////////////
             }
         });
     }
@@ -103,9 +114,10 @@ public class StudentHomework extends AppCompatActivity  implements AdapterView.O
                                    int position, long id) {
         //删除当前行
         //删除当前行的数据
-//        List.remove(position);
-        //更新列表
-        //lv_main.setAdapter(adapter);//显示列表, 不会使用缓存的item的视图对象
+
+//        newsList.remove(position);
+//        //更新列表
+//        lvNewsList.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
 //        newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
 
         return true;
