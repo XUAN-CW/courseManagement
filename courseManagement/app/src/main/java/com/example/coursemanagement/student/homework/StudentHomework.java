@@ -4,9 +4,12 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentHomework extends AppCompatActivity {
+public class StudentHomework extends AppCompatActivity  implements AdapterView.OnItemLongClickListener {
     SQLiteDatabase db=null;
     MySQLiteOpenHelper myDbHelper = null;
 
@@ -25,13 +28,14 @@ public class StudentHomework extends AppCompatActivity {
     ListView lvNewsList=null;
     NewsAdapter newsAdapter=null;
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_homework);
 
         readFromDatabaseAndShowData();
+        addItemClickListener();
     }
 
     public void readFromDatabaseAndShowData(){
@@ -73,5 +77,38 @@ public class StudentHomework extends AppCompatActivity {
 
     }
 
+
+    public void addItemClickListener(){
+        lvNewsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            /**
+             * parent : ListView
+             * view : 当前行的item视图对象
+             * position : 当前行的下标
+             */
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                //提示当前行的应用名称
+                String appName = newsList.get(position).getHomeworkTitle();
+                //提示
+                Toast.makeText(StudentHomework.this, appName, 0).show();
+            }
+        });
+    }
+
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                   int position, long id) {
+        //删除当前行
+        //删除当前行的数据
+//        List.remove(position);
+        //更新列表
+        //lv_main.setAdapter(adapter);//显示列表, 不会使用缓存的item的视图对象
+//        newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
+
+        return true;
+    }
 }
 
