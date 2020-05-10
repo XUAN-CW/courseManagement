@@ -15,26 +15,32 @@ import java.util.List;
 public class Assignment extends AppCompatActivity {
     SQLiteDatabase db=null;
     MySQLiteOpenHelper myDbHlper = null;
+    List<News> newsList=null;
+    ListView lvNewsList=null;
+    NewsAdapter newsAdapter=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        readFromDatabaseAndShowData();
+
+    }
+
+    public void readFromDatabaseAndShowData(){
         setContentView(R.layout.student_homework);
         System.out.println(222222);
-         myDbHlper = new MySQLiteOpenHelper(Assignment.this);
+        myDbHlper = new MySQLiteOpenHelper(Assignment.this);
         System.out.println(333333);
         db = myDbHlper.getReadableDatabase();
         System.out.println(55555);
-
-
-
         Cursor cursor = db.query(
                 NewsContract.NewsEntry.ASSIGNMENT_TABLE,
                 null , null , null , null , null , null);
 
 
-        List<News> newsList = new ArrayList<>();
-        ListView lvNewsList = findViewById(R.id.lv_news_list);
+        newsList = new ArrayList<>();
+        lvNewsList = findViewById(R.id.lv_news_list);
         int titleIndex = cursor.getColumnIndex(
                 NewsContract.NewsEntry.ASSIGNMENT_TITLE);
         int courseIndex = cursor.getColumnIndex(
@@ -51,15 +57,12 @@ public class Assignment extends AppCompatActivity {
             newsList.add(news);
 
         }
-        NewsAdapter newsAdapter = new NewsAdapter(
+        newsAdapter = new NewsAdapter(
                 Assignment.this,
                 R.layout.list_item,
                 newsList);
         lvNewsList.setAdapter(newsAdapter);
-
     }
-
-
 
 }
 
