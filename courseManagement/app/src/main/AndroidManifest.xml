@@ -12,10 +12,10 @@
         <activity android:name=".SignUp"></activity>
         <activity android:name=".Login"></activity>
         <activity android:name=".teacher.assignment.Assignment"></activity>
-        <activity android:name=".student.homework.StudentHomework"></activity>
+<!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
 <!--        <activity android:name=".Login"></activity>-->
-        <activity android:name=".student.ui.home.Student">
+        <activity android:name=".student.ui.Student">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

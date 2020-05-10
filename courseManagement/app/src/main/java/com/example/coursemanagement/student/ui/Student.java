@@ -1,0 +1,47 @@
+package com.example.coursemanagement.student.ui;
+
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.coursemanagement.R;
+import com.example.coursemanagement.student.ui.home.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.home.News;
+import com.example.coursemanagement.student.ui.home.NewsAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Student extends AppCompatActivity{
+    SQLiteDatabase db=null;
+    MySQLiteOpenHelper myDbHelper = null;
+
+    List<News> newsList=null;
+    ListView lvNewsList=null;
+    NewsAdapter newsAdapter=null;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_student);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+    }
+}
