@@ -11,9 +11,9 @@
         android:theme="@style/AppTheme">
         <activity android:name=".SignUp"></activity>
         <activity android:name=".Login"></activity>
-
+        <activity android:name=".student.homework.StudentHomework"></activity>
 <!--        <activity android:name=".Login"></activity>-->
-        <activity android:name=".student.homework.StudentHomework">
+        <activity android:name=".teacher.assignment.Assignment">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

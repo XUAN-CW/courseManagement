@@ -76,5 +76,16 @@ public final class Network {
         return httpURLConnection;
     }
 
+    public static HttpURLConnection getTeacherAssignment(final String jobNumber){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","getTeacherAssignment");
+                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+            }
+        });
+        return httpURLConnection;
+    }
 
 }
