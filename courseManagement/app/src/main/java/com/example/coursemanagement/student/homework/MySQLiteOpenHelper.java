@@ -2,9 +2,7 @@ package com.example.coursemanagement.student.homework;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import com.example.coursemanagement.Network;
@@ -12,8 +10,6 @@ import com.example.coursemanagement.R;
 
 import java.net.HttpURLConnection;
 
-import java.net.HttpURLConnection;
-import java.util.Date;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
@@ -26,28 +22,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     NewsContract.NewsEntry.HOMEWORK_CONTENT + " VARCHAR(500), " +
                     NewsContract.NewsEntry.HOMEWORK_START_TIME + " VARCHAR(50), " +
                     NewsContract.NewsEntry.HOMEWORK_DEADLINE + " VARCHAR(50)"+" )";
-
-
-
-
-
-
-
-
-
-    /////////////////////////////////////////////////////////////////////
-
-//    private static final String SQL_CREATE_ENTRIES =
-//            "CREATE TABLE " + NewsContract.NewsEntry.TABLE_NAME + " (" +
-//                    NewsContract.NewsEntry._ID + " INTEGER PRIMARY KEY, " +
-//                    NewsContract.NewsEntry.COLUMN_NAME_TITLE + " VARCHAR(50), " +
-//                    NewsContract.NewsEntry.COLUMN_NAME_AUTHOR + " VARCHAR(50), " +
-//                    NewsContract.NewsEntry.COLUMN_NAME_CONTENT + " TEXT " +
-////                    NewsContract.NewsEntry.COLUMN_NAME_IMAGE + " VARCHAR(100) " +
-//                    ")";
-
-//    private static final String SQL_DELETE_ENTRIES =
-//            "DROP TABLE IF EXISTS " + NewsContract.NewsEntry.TABLE_NAME;
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + NewsContract.NewsEntry.HOMEWORK_TABLE;
@@ -108,7 +82,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     String[] columns=data.split(columnDivider);
 
                     for(int i=0;i<columns.length;i++){
-//            System.out.println(temp[i]);
                         String[] currColumn=columns[i].split(itemDivider);
                         System.out.println(currColumn[0]);
                         if(currColumn[0].equals("title")){
@@ -149,11 +122,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                         System.out.println(startTime[i]);
                         values.put(NewsContract.NewsEntry.HOMEWORK_DEADLINE , deadline[i]);
                         System.out.println(deadline[i]);
-
-
-//            values.put(NewsContract.NewsEntry.COLUMN_NAME_IMAGE ,
-//                    images.getString(i));
-
                         long r = sqLiteDatabase.insert(
                                 NewsContract.NewsEntry.HOMEWORK_TABLE ,
                                 null ,
@@ -163,44 +131,5 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
                 }}
         }).start();//启动子线程
-
-
-
-
-
-//////////////////////////////////////////////////////////////////
-//        Resources resources = mContext.getResources();
-//        String[] titles = resources.getStringArray(R.array.titles);
-//        String[] authors = resources.getStringArray(R.array.authors);
-//        String[] contents = resources.getStringArray(R.array.titles);
-////        TypedArray images = resources.obtainTypedArray(R.array.images);
-//
-//        int length = 0;
-//        length = Math.min(titles.length , authors.length);
-//        length = Math.min(length , contents.length);
-////        length = Math.min(length , images.length());
-//
-//        for (int i = 0; i < length; i++) {
-//            ContentValues values = new ContentValues();
-//            values.put(NewsContract.NewsEntry.COLUMN_NAME_TITLE ,
-//                    titles[i]);
-//            values.put(NewsContract.NewsEntry.COLUMN_NAME_AUTHOR ,
-//                    authors[i]);
-//            values.put(NewsContract.NewsEntry.COLUMN_NAME_CONTENT ,
-//                    contents[i]);
-////            values.put(NewsContract.NewsEntry.COLUMN_NAME_IMAGE ,
-////                    images.getString(i));
-//
-//            long r = sqLiteDatabase.insert(
-//                    NewsContract.NewsEntry.TABLE_NAME ,
-//                    null ,
-//                    values);
-//        }
     }
-
-
-
-
-
-
 }

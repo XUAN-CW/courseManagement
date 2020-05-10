@@ -39,28 +39,10 @@ public class NewsAdapter extends ArrayAdapter <News> {
 //        ImageView ivImage = view.findViewById(R.id.iv_image);
 
         //重置控件
-        tvTitle.setText(news.getTitle());
+        tvTitle.setText(news.getHomeworkTitle());
         tvAuthor.setText(news.getCourse());
 //        ivImage.setImageResource(news.getmImageId());
         return view;//返回 view 以供调用
 
-        ////////////////////////////////////////////////////////////
-//        News news = getItem(position);//用position来找数据
-//
-////        第一个传入的参数resourse是你想要加载的布局资源。
-////        第二个传入的参数是指当前载入的视图要将要放入在层级结构中的根视图。
-////        如果传入了第三个参数attachToRoot，那么它会决定视图在载入完成后是否附加到传入的根视图中去。
-//        View view = LayoutInflater.from(getContext()).inflate(resourceId , parent , false);
-//
-//        //获取控件
-//        TextView tvTitle = view.findViewById(R.id.tv_title);
-//        TextView tvAuthor = view.findViewById(R.id.tv_subtitle);
-////        ImageView ivImage = view.findViewById(R.id.iv_image);
-//
-//        //重置控件
-//        tvTitle.setText(news.getTitle());
-//        tvAuthor.setText(news.getmAuthor());
-////        ivImage.setImageResource(news.getmImageId());
-//        return view;//返回 view 以供调用
     }
 }
