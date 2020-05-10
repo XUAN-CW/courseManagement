@@ -1,2 +1,3 @@
 rootProject.name='courseManagement'
 include ':app'
+include ':fragment'
