@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Assignment extends AppCompatActivity {
     SQLiteDatabase db=null;
-    MySQLiteOpenHelper myDbHlper = null;
+    MySQLiteOpenHelper myDbHelper = null;
     List<News> newsList=null;
     ListView lvNewsList=null;
     NewsAdapter newsAdapter=null;
@@ -30,9 +30,9 @@ public class Assignment extends AppCompatActivity {
     public void readFromDatabaseAndShowData(){
         setContentView(R.layout.student_homework);
         System.out.println(222222);
-        myDbHlper = new MySQLiteOpenHelper(Assignment.this);
+        myDbHelper = new MySQLiteOpenHelper(Assignment.this);
         System.out.println(333333);
-        db = myDbHlper.getReadableDatabase();
+        db = myDbHelper.getReadableDatabase();
         System.out.println(55555);
         Cursor cursor = db.query(
                 NewsContract.NewsEntry.ASSIGNMENT_TABLE,

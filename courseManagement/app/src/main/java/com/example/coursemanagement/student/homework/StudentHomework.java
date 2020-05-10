@@ -19,19 +19,26 @@ import java.util.Map;
 
 public class StudentHomework extends AppCompatActivity {
     SQLiteDatabase db=null;
-    MySQLiteOpenHelper myDbHlper = null;
+    MySQLiteOpenHelper myDbHelper = null;
 
+    List<News> newsList=null;
+    ListView lvNewsList=null;
+    NewsAdapter newsAdapter=null;
 
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.student_homework);
+
+        readFromDatabaseAndShowData();
+    }
+
+    public void readFromDatabaseAndShowData(){
         System.out.println(222222);
-         myDbHlper = new MySQLiteOpenHelper(StudentHomework.this);
+        myDbHelper = new MySQLiteOpenHelper(StudentHomework.this);
         System.out.println(333333);
-        db = myDbHlper.getReadableDatabase();
+        db = myDbHelper.getReadableDatabase();
         System.out.println(55555);
 
 
@@ -41,8 +48,8 @@ public class StudentHomework extends AppCompatActivity {
                 null , null , null , null , null , null);
 
 
-        List<News> newsList = new ArrayList<>();
-        ListView lvNewsList = findViewById(R.id.lv_news_list);
+        newsList = new ArrayList<>();
+        lvNewsList = findViewById(R.id.lv_news_list);
         int titleIndex = cursor.getColumnIndex(
                 NewsContract.NewsEntry.HOMEWORK_TITLE);
         int authorIndex = cursor.getColumnIndex(
@@ -58,15 +65,13 @@ public class StudentHomework extends AppCompatActivity {
             newsList.add(news);
 
         }
-        NewsAdapter newsAdapter = new NewsAdapter(
+        newsAdapter = new NewsAdapter(
                 StudentHomework.this,
                 R.layout.list_item,
                 newsList);
         lvNewsList.setAdapter(newsAdapter);
 
     }
-
-
 
 }
 
