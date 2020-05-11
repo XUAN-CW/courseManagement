@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    &lt;!&ndash;定义一个普通菜单项&ndash;&gt;-->
+<!--    <item android:id="@+id/plain_item"-->
+<!--        android:title="plain_item"/>-->
+
+    <item android:id="@+id/delete"
+        android:title="delete"/>
+
+
+
+</menu>

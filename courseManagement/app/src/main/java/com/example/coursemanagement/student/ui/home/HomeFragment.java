@@ -1,7 +1,6 @@
 package com.example.coursemanagement.student.ui.home;
 
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,17 +17,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.Toast;
 
 
 public class HomeFragment extends Fragment {
@@ -112,45 +103,35 @@ public class HomeFragment extends Fragment {
                 //提示当前行的应用名称
                 String appName = newsList.get(position).getHomeworkTitle();
                 //提示
-                Toast.makeText(getActivity(), "Click:" + appName, 0).show();
+                Toast.makeText(getActivity(), "Click:" + appName, Toast.LENGTH_SHORT).show();
                 //////////////////点击移除的代码如下////////////////////
 //                newsList.remove(position);
 //                //更新列表
 //                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
 //                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
                 ////////////////////////////////////
-
-
             }
         });
 
 
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
-
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 String appName = newsList.get(position).getHomeworkTitle();
-                Toast.makeText(getActivity(), "LongClick:" + appName, 0).show();
-//                newsList.remove(position);
-//                //更新列表
-//                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
-//                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
-
-
-
+                Toast.makeText(getActivity(), "LongClick:" + appName, Toast.LENGTH_SHORT).show();
                 popupMenu = new PopupMenu(getActivity(), view);
-                //将 R.menu.menu_main 菜单资源加载到popup中
-                popupMenu.getMenuInflater().inflate(R.menu.menu_main,popupMenu.getMenu());
+                //将 R.menu.student_popup_menu 菜单资源加载到popup中
+                popupMenu.getMenuInflater().inflate(R.menu.student_popup_menu,popupMenu.getMenu());
                 //为popupMenu选项添加监听器
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.plain_item:
-                                //隐藏对话框
-                                popupMenu.dismiss();
-                                System.out.println(11111);
+                            case R.id.delete:
+                                newsList.remove(position);
+                                //更新列表
+                                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
+                                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
                                 break;
                             default:
                                 Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
@@ -163,6 +144,4 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
-
 }
