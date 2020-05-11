@@ -7,50 +7,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.coursemanagement.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.ListView;
+public class TeacherHomeFragment extends Fragment {
 
-import com.example.coursemanagement.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class HomeFragment extends Fragment {
-
-    private HomeViewModel homeViewModel;
+    private TeacherHomeViewModel teacherHomeViewModel;
 
     SQLiteDatabase db=null;
-    MySQLiteOpenHelper myDbHelper = null;
-    List<News> newsList=null;
+    TeacherSQLiteOpenHelper myDbHelper = null;
+    List<TeacherNews> teacherNewsList =null;
     ListView lvNewsList=null;
-    NewsAdapter newsAdapter=null;
+    TeacherNewsAdapter teacherNewsAdapter =null;
     View view;
     ListView list=null;
 
@@ -63,7 +43,7 @@ public class HomeFragment extends Fragment {
         readFromDatabaseAndSetAdapter();
         System.out.println("teacher_lv_news_list"+view.findViewById(R.id.teacher_lv_news_list));
         list = (ListView) view.findViewById(R.id.teacher_lv_news_list);
-        list.setAdapter(newsAdapter);
+        list.setAdapter(teacherNewsAdapter);
 
         addItemClickListener();
 
@@ -72,34 +52,34 @@ public class HomeFragment extends Fragment {
 
 
     public void readFromDatabaseAndSetAdapter() {
-        myDbHelper = new MySQLiteOpenHelper(getActivity());
+        myDbHelper = new TeacherSQLiteOpenHelper(getActivity());
         db = myDbHelper.getReadableDatabase();
         Cursor cursor = db.query(
-                NewsContract.NewsEntry.ASSIGNMENT_TABLE,
+                TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                 null, null, null, null, null, null);
-        newsList = new ArrayList<>();
+        teacherNewsList = new ArrayList<>();
         try {
         } catch (Exception e) {
 
         }
-        System.out.println("newsList"+newsList);
+        System.out.println("newsList"+ teacherNewsList);
 
         int titleIndex = cursor.getColumnIndex(
-                NewsContract.NewsEntry.ASSIGNMENT_TITLE);
+                TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE);
         int authorIndex = cursor.getColumnIndex(
-                NewsContract.NewsEntry.ASSIGNMENT_COURSE);
+                TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE);
 
         while (cursor.moveToNext()) {
-            News news = new News();
+            TeacherNews teacherNews = new TeacherNews();
 
             String currentTitle = cursor.getString(titleIndex);
             String currentCourse = cursor.getString(authorIndex);
-            news.setAssignmentTitle(currentTitle);
-            news.setCourse(currentCourse);
-            newsList.add(news);
+            teacherNews.setAssignmentTitle(currentTitle);
+            teacherNews.setCourse(currentCourse);
+            teacherNewsList.add(teacherNews);
         }
-        newsAdapter = new NewsAdapter(getActivity(), R.layout.list_item, newsList);
-        System.out.println("newsAdapter"+newsAdapter);
+        teacherNewsAdapter = new TeacherNewsAdapter(getActivity(), R.layout.list_item, teacherNewsList);
+        System.out.println("newsAdapter"+ teacherNewsAdapter);
     }
 
     public void addItemClickListener() {
@@ -113,7 +93,7 @@ public class HomeFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 //提示当前行的应用名称
-                String appName = newsList.get(position).getAssignmentTitle();
+                String appName = teacherNewsList.get(position).getAssignmentTitle();
                 //提示
                 Toast.makeText(getActivity(), "Click:" + appName, Toast.LENGTH_SHORT).show();
                 //////////////////点击移除的代码如下////////////////////
@@ -129,7 +109,7 @@ public class HomeFragment extends Fragment {
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                String appName = newsList.get(position).getAssignmentTitle();
+                String appName = teacherNewsList.get(position).getAssignmentTitle();
                 Toast.makeText(getActivity(), "LongClick:" + appName, Toast.LENGTH_SHORT).show();
                 popupMenu = new PopupMenu(getActivity(), view);
                 //将 R.menu.student_popup_menu 菜单资源加载到popup中
@@ -140,10 +120,10 @@ public class HomeFragment extends Fragment {
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
                             case R.id.delete:
-                                newsList.remove(position);
+                                teacherNewsList.remove(position);
                                 //更新列表
-                                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
-                                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
+                                list.setAdapter(teacherNewsAdapter);//显示列表, 不会使用缓存的item的视图对象
+                                teacherNewsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
                                 break;
                             default:
 //                                newsList.get(position).getAssignmentNumber();

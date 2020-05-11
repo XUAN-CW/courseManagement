@@ -2,8 +2,8 @@ package com.example.coursemanagement.teacher.ui.home;
 
 import android.provider.BaseColumns;
 
-public final class NewsContract {
-    private NewsContract() {}
+public final class TeacherNewsContract {
+    private TeacherNewsContract() {}
 
     public static class NewsEntry implements BaseColumns {
         public static final String ASSIGNMENT_TABLE = "assignment";

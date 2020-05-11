@@ -12,30 +12,30 @@ import com.example.coursemanagement.R;
 import java.net.HttpURLConnection;
 
 
-public class MySQLiteOpenHelper extends SQLiteOpenHelper {
+public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     private static final String ASSIGNMENT_TABLE =
             "CREATE TABLE " +
-                    NewsContract.NewsEntry.ASSIGNMENT_TABLE + " (" +
-                    NewsContract.NewsEntry.ASSIGNMENT_COURSE + " VARCHAR(50), " +
-                    NewsContract.NewsEntry.ASSIGNMENT_TITLE + " VARCHAR(50), " +
-                    NewsContract.NewsEntry.ASSIGNMENT_CONTENT + " VARCHAR(500), " +
-                    NewsContract.NewsEntry.ASSIGNMENT_START_TIME + " VARCHAR(50), " +
-                    NewsContract.NewsEntry.ASSIGNMENT_DEADLINE + " VARCHAR(50),"+
-                    NewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER + " VARCHAR(50),"+
-                    NewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER + " VARCHAR(50)"+
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE + " (" +
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE + " VARCHAR(50), " +
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE + " VARCHAR(50), " +
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_CONTENT + " VARCHAR(500), " +
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME + " VARCHAR(50), " +
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE + " VARCHAR(50),"+
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER + " VARCHAR(50),"+
+                    TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER + " VARCHAR(50)"+
                     " )";
 
     private static final String SQL_DELETE_ENTRIES =
-            "DROP TABLE IF EXISTS " + NewsContract.NewsEntry.ASSIGNMENT_TABLE;
+            "DROP TABLE IF EXISTS " + TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE;
 
     public static final int DATABASE_VERSION = 1;
 //    public static final String DATABASE_NAME = "news--"+new Date()+".db";
     public static final String DATABASE_NAME = "assignment2.db";
     private Context mContext;
 
-    public MySQLiteOpenHelper(Context context) {
+    public TeacherSQLiteOpenHelper(Context context) {
         super(context , DATABASE_NAME , null , DATABASE_VERSION);
         mContext = context;
 
@@ -128,24 +128,24 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     for (int i = 1; i < length; i++) {
                         ContentValues values = new ContentValues();
 
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER , courseNumber[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER , courseNumber[i]);
                         System.out.println(courseNumber[i]);
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER , assignmentNumber[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER , assignmentNumber[i]);
                         System.out.println(assignmentNumber[i]);
 
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_TITLE , homeworkTitle[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE , homeworkTitle[i]);
                         System.out.println(homeworkTitle[i]);
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_CONTENT , homeworkContent[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_CONTENT , homeworkContent[i]);
                         System.out.println(homeworkContent[i]);
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_COURSE , course[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE , course[i]);
                         System.out.println(course[i]);
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_START_TIME , startTime[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME , startTime[i]);
                         System.out.println(startTime[i]);
-                        values.put(NewsContract.NewsEntry.ASSIGNMENT_DEADLINE , deadline[i]);
+                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE , deadline[i]);
                         System.out.println(deadline[i]);
 
                         long r = sqLiteDatabase.insert(
-                                NewsContract.NewsEntry.ASSIGNMENT_TABLE,
+                                TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,
                                 values);
                     }
