@@ -15,7 +15,8 @@
 <!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
 <!--        <activity android:name=".Login"></activity>-->
-        <activity android:name=".student.ui.Student">
+        <activity android:name=".student.ui.Student"></activity>
+        <activity android:name=".teacher.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
