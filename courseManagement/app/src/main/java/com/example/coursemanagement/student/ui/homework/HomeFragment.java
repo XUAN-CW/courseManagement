@@ -38,29 +38,21 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.student_homework, null);
-        readFromDatabaseAndSetAdapter();
 
+        readFromDatabaseAndSetAdapter();
         list = (ListView) view.findViewById(R.id.lv_news_list);
         list.setAdapter(newsAdapter);
 
         addItemClickListener();
-
         return view;
     }
 
     public void readFromDatabaseAndSetAdapter() {
-        System.out.println(222222);
         myDbHelper = new MySQLiteOpenHelper(getActivity());
-        System.out.println(333333);
         db = myDbHelper.getReadableDatabase();
-        System.out.println(55555);
-
-
         Cursor cursor = db.query(
                 NewsContract.NewsEntry.HOMEWORK_TABLE,
                 null, null, null, null, null, null);
-
-
         newsList = new ArrayList<>();
         try {
             lvNewsList = (ListView) view.findViewById(R.id.lv_news_list);
