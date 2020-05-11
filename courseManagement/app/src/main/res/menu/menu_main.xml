@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="@string/app_name"
+        android:icon="@drawable/ic_launcher_background">
+        <menu>
+            <!--定义一组选项菜单-->
+            <group android:checkableBehavior="single">
+                <!--定义多个菜单项-->
+                <item
+                    android:id="@+id/font_10"
+                    android:title="font_10"/>
+                <item
+                    android:id="@+id/font_12"
+                    android:title="font_12"/>
+                <item
+                    android:id="@+id/font_14"
+                    android:title="font_14"/>
+                <item
+                    android:id="@+id/font_16"
+                    android:title="font_16"/>
+                <item
+                    android:id="@+id/font_18"
+                    android:title="font_18"/>
+            </group>
+        </menu>
+    </item>
+    <!--定义一个普通菜单项-->
+    <item android:id="@+id/plain_item"
+        android:title="plain_item"/>
+
+
+
+
+    <item android:title="font_color"
+        android:icon="@drawable/ic_launcher_background">
+        <menu>
+            <!--定义一个普通选项菜单-->
+            <group>
+                <!--定义三个菜单项-->
+                <item
+                    android:id="@+id/red_font"
+                    android:title="red_title"/>
+                <item
+                    android:id="@+id/green_font"
+                    android:title="red_title"/>
+                <item
+                    android:id="@+id/blue_font"
+                    android:title="red_title"/>
+            </group>
+        </menu>
+    </item>
+</menu>
