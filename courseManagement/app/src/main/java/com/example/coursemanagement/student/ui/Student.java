@@ -1,17 +1,13 @@
 package com.example.coursemanagement.student.ui;
 
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.home.MySQLiteOpenHelper;
-import com.example.coursemanagement.student.ui.home.News;
-import com.example.coursemanagement.student.ui.home.NewsAdapter;
+import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.homework.News;
+import com.example.coursemanagement.student.ui.homework.NewsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +16,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends AppCompatActivity{
@@ -33,7 +28,7 @@ public class Student extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student);
+        setContentView(R.layout.student_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.

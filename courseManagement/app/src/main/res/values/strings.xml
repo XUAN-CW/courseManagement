@@ -11,13 +11,17 @@
     <string name="sing_up_button">sgin up and login</string>
 
     <string name="logined">logined</string>
-
     <string name="identity">identity</string>
 
 
 <!--    //////////////////////////////////////////////////////////-->
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="student_title_home">Home</string>
+    <string name="student_title_dashboard">Dashboard</string>
+    <string name="student_title_notifications">Notifications</string>
+
+
+
+
+
 </resources>
 

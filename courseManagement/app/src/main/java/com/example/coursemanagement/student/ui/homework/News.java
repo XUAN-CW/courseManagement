@@ -1,4 +1,4 @@
-package com.example.coursemanagement.student.ui.home;
+package com.example.coursemanagement.student.ui.homework;
 
 public class News {
     private String homeworkTitle;
