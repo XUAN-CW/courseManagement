@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".SignUp"></activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".teacher.assignment.Assignment"></activity>
+        <activity android:name=".student.ui.Student"></activity>
+<!--        <activity android:name=".teacher.assignment.Assignment"></activity>-->
 <!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
 <!--        <activity android:name=".Login"></activity>-->
-        <activity android:name=".student.ui.Student"></activity>
-        <activity android:name=".teacher.ui.MainActivity">
+        <activity android:name=".teacher.ui.Teacher"></activity>
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

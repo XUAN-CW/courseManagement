@@ -18,6 +18,9 @@ import android.text.InputType;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.coursemanagement.student.ui.Student;
+import com.example.coursemanagement.teacher.ui.Teacher;
+
 import java.net.HttpURLConnection;
 
 public class Login extends AppCompatActivity {
@@ -33,11 +36,38 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
-        readAccountAndPassword();
-        controlPasswordVisible();
-        controlSavePasswordAndLogin();
-        goToSignUpLayout();
+
+        String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+        SharedPreferences spFile = getSharedPreferences(spFileName , MODE_PRIVATE);
+        boolean isLogin =
+                spFile.getBoolean(getResources().getString(R.string.logined) , false);
+
+        String identity=
+                spFile.getString(getResources().getString(R.string.identity), null);
+        if (isLogin&&"student".equals(identity)) {
+            Intent intent = new Intent(Login.this, Student.class);
+            //调用 activity
+            startActivity(intent);
+        }
+        else if (isLogin&&"teacher".equals(identity)){
+            Intent intent = new Intent(Login.this, Teacher.class);
+            //调用 activity
+            startActivity(intent);
+        } else {
+            System.out.println("----------------------------------");
+            setContentView(R.layout.login);
+            readAccountAndPassword();
+            controlPasswordVisible();
+            controlSavePasswordAndLogin();
+            goToSignUpLayout();
+        }
+
+
+
+
+
+
+
     }
 
     private void readAccountAndPassword(){
@@ -143,18 +173,36 @@ public class Login extends AppCompatActivity {
                 new Thread(new Runnable() {//创建子线程
                     @Override
                     public void run() {
-                        HttpURLConnection loginResult = Network.login(etAccount.getText().toString(),
-                                etPwd.getText().toString());
-                        if (null != loginResult) {
-                            if (loginResult.getHeaderField("status").equals("OK")) {
-                                String spFileName = getResources().getString(R.string.shared_preferences_file_name);
-                                SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
-                                SharedPreferences.Editor editor = spFile.edit();
-                                //保存身份
-                                editor.putString("identity", loginResult.getHeaderField("identity")).apply();
-                                //设置已登录
-                                editor.putBoolean(getResources().getString(R.string.logined),true).apply();
-                            } else {
+                        try {
+                            HttpURLConnection loginResult = Network.login(etAccount.getText().toString(),
+                                    etPwd.getText().toString());
+                            if (null != loginResult) {
+                                if (loginResult.getHeaderField("status").equals("OK")) {
+                                    String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+                                    SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editor = spFile.edit();
+                                    //保存身份
+                                    editor.putString(getResources().getString(R.string.identity), loginResult.getHeaderField("identity")).apply();
+                                    //设置已登录
+                                    editor.putBoolean(getResources().getString(R.string.logined),true).apply();
+
+                                    boolean isLogin =
+                                            spFile.getBoolean(getResources().getString(R.string.logined) , false);
+
+                                    String identity=
+                                            spFile.getString(getResources().getString(R.string.identity), null);
+                                    System.out.println(isLogin+"----------------"+identity);
+                                    if (isLogin&&"student".equals(identity)) {
+                                        Intent intent = new Intent(Login.this, Student.class);
+                                        //调用 activity
+                                        startActivity(intent);
+                                    }
+                                    else if (isLogin&&"teacher".equals(identity)){
+                                        Intent intent = new Intent(Login.this, Teacher.class);
+                                        //调用 activity
+                                        startActivity(intent);
+                                    }
+                                } else {
                             /*
                                多线程中使用 Toast
                                方法来源：https://www.cnblogs.com/liyiran/p/4635676.html
@@ -164,12 +212,13 @@ public class Login extends AppCompatActivity {
                                在 Toast 后添加：
                                    Looper.loop();
                              */
-                                Looper.prepare();
-                                Toast.makeText(Login.this,
-                                        loginResult.getHeaderField("status"), Toast.LENGTH_SHORT).show();
-                                Looper.loop();
+                                    Looper.prepare();
+                                    Toast.makeText(Login.this,
+                                            loginResult.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                                    Looper.loop();
+                                }
                             }
-                        } else {
+                        }catch (Exception e){
                             Toast.makeText(Login.this,
                                     "联网失败", Toast.LENGTH_SHORT).show();
                             Looper.loop();
