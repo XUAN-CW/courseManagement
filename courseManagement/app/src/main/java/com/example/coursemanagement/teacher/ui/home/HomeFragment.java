@@ -133,7 +133,7 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getActivity(), "LongClick:" + appName, Toast.LENGTH_SHORT).show();
                 popupMenu = new PopupMenu(getActivity(), view);
                 //将 R.menu.student_popup_menu 菜单资源加载到popup中
-                popupMenu.getMenuInflater().inflate(R.menu.student_popup_menu,popupMenu.getMenu());
+                popupMenu.getMenuInflater().inflate(R.menu.teacher_popup_menu,popupMenu.getMenu());
                 //为popupMenu选项添加监听器
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
@@ -146,6 +146,7 @@ public class HomeFragment extends Fragment {
                                 newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
                                 break;
                             default:
+//                                newsList.get(position).getAssignmentNumber();
                                 Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
                         }
                         return true;
