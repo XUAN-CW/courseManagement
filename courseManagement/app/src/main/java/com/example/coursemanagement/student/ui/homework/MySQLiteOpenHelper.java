@@ -42,9 +42,9 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         System.out.println(4444444);
         //sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
-        initDb(sqLiteDatabase);
+//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+//        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
+        initDb();
 
     }
 
@@ -56,7 +56,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private void initDb(final SQLiteDatabase sqLiteDatabase) {
+    public void initDb() {
+
+        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
+
         System.out.println("initDb---------------");
         new Thread(new Runnable() {//创建子线程
             @Override
@@ -71,64 +74,73 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     HttpURLConnection homeworkFromDatabase = Network.findStudentAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
                     System.err.println("收到了\n"+data);
-                    String homeworkTitle[]=null;
-                    String homeworkContent[]=null;
-                    String course[]=null;
-                    String startTime[]=null;
-                    String deadline[]=null;
-                    String columnDivider="bbbbb";
-                    String itemDivider="aaaaa";
-                    String[] columns=data.split(columnDivider);
+                    if(null!=data){
+                        String homeworkTitle[]=null;
+                        String homeworkContent[]=null;
+                        String course[]=null;
+                        String startTime[]=null;
+                        String deadline[]=null;
+                        String columnDivider="bbbbb";
+                        String itemDivider="aaaaa";
+                        String[] columns=data.split(columnDivider);
 
-                    for(int i=0;i<columns.length;i++){
-                        String[] currColumn=columns[i].split(itemDivider);
-                        System.out.println(currColumn[0]);
-                        if(currColumn[0].equals("title")){
-                            currColumn[0]="homeworkTitle";
-                            homeworkTitle=currColumn;
+                        for(int i=0;i<columns.length;i++){
+                            String[] currColumn=columns[i].split(itemDivider);
+                            System.out.println(currColumn[0]);
+                            if(currColumn[0].equals("title")){
+                                currColumn[0]="homeworkTitle";
+                                homeworkTitle=currColumn;
+                            }
+                            if(currColumn[0].equals("content")){
+                                currColumn[0]="homeworkContent";
+                                homeworkContent=currColumn;
+                            }
+                            if(currColumn[0].equals("name")){
+                                currColumn[0]="course";
+                                course=currColumn;
+                            }
+                            if(currColumn[0].equals("startTime")){
+                                currColumn[0]="startTime";
+                                startTime=currColumn;
+                            }
+                            if(currColumn[0].equals("deadline")){
+                                currColumn[0]="deadline";
+                                deadline=currColumn;
+                            }
                         }
-                        if(currColumn[0].equals("content")){
-                            currColumn[0]="homeworkContent";
-                            homeworkContent=currColumn;
-                        }
-                        if(currColumn[0].equals("name")){
-                            currColumn[0]="course";
-                            course=currColumn;
-                        }
-                        if(currColumn[0].equals("startTime")){
-                            currColumn[0]="startTime";
-                            startTime=currColumn;
-                        }
-                        if(currColumn[0].equals("deadline")){
-                            currColumn[0]="deadline";
-                            deadline=currColumn;
-                        }
-                    }
-                    int length = 0;
-                    length = Math.min(homeworkTitle.length , homeworkContent.length);
-                    length = Math.min(length , course.length);
-                    length = Math.min(length , startTime.length);
-                    length = Math.min(length , deadline.length);
-                    for (int i = 1; i < length; i++) {
-                        ContentValues values = new ContentValues();
-                        values.put(NewsContract.NewsEntry.HOMEWORK_TITLE , homeworkTitle[i]);
-                        System.out.println(homeworkTitle[i]);
-                        values.put(NewsContract.NewsEntry.HOMEWORK_CONTENT , homeworkContent[i]);
-                        System.out.println(homeworkContent[i]);
-                        values.put(NewsContract.NewsEntry.HOMEWORK_COURSE , course[i]);
-                        System.out.println(course[i]);
-                        values.put(NewsContract.NewsEntry.HOMEWORK_START_TIME , startTime[i]);
-                        System.out.println(startTime[i]);
-                        values.put(NewsContract.NewsEntry.HOMEWORK_DEADLINE , deadline[i]);
-                        System.out.println(deadline[i]);
-                        long r = sqLiteDatabase.insert(
-                                NewsContract.NewsEntry.HOMEWORK_TABLE ,
-                                null ,
-                                values);
-                    }
-                }catch (Exception e){
+                        int length = 0;
+                        length = Math.min(homeworkTitle.length , homeworkContent.length);
+                        length = Math.min(length , course.length);
+                        length = Math.min(length , startTime.length);
+                        length = Math.min(length , deadline.length);
 
-                }}
+                        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+                        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
+                        for (int i = 1; i < length; i++) {
+                            ContentValues values = new ContentValues();
+                            values.put(NewsContract.NewsEntry.HOMEWORK_TITLE , homeworkTitle[i]);
+                            System.out.println(homeworkTitle[i]);
+                            values.put(NewsContract.NewsEntry.HOMEWORK_CONTENT , homeworkContent[i]);
+                            System.out.println(homeworkContent[i]);
+                            values.put(NewsContract.NewsEntry.HOMEWORK_COURSE , course[i]);
+                            System.out.println(course[i]);
+                            values.put(NewsContract.NewsEntry.HOMEWORK_START_TIME , startTime[i]);
+                            System.out.println(startTime[i]);
+                            values.put(NewsContract.NewsEntry.HOMEWORK_DEADLINE , deadline[i]);
+                            System.out.println(deadline[i]);
+                            long r = sqLiteDatabase.insert(
+                                    NewsContract.NewsEntry.HOMEWORK_TABLE ,
+                                    null ,
+                                    values);
+                           }
+
+                        SharedPreferences.Editor editor = spFile.edit();
+                        editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
+
+                    }}catch (Exception e){
+
+                }
+               }
         }).start();//启动子线程
     }
 }

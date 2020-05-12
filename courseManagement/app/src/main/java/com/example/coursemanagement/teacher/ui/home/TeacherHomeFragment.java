@@ -1,5 +1,6 @@
 package com.example.coursemanagement.teacher.ui.home;
 
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.coursemanagement.R;
+import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +41,14 @@ public class TeacherHomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+
+        new TeacherSQLiteOpenHelper(getActivity()).initDb();
+        String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+
+        SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
+        while (!spFile.getBoolean(getResources().getString(R.string.logined) , false)){}
+
 
         readFromDatabaseAndSetAdapter();
         System.out.println("teacher_lv_news_list"+view.findViewById(R.id.teacher_lv_news_list));

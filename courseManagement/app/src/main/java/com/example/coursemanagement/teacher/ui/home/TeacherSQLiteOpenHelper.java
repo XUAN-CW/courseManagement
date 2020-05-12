@@ -154,6 +154,9 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                                 null ,
                                 values);
                     }
+                    SharedPreferences.Editor editor = spFile.edit();
+                    editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
+
                 }catch (Exception e){
 
                 }}

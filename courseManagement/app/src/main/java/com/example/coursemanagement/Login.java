@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursemanagement.student.ui.Student;
+import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
 import com.example.coursemanagement.teacher.ui.Teacher;
 import com.example.coursemanagement.teacher.ui.home.TeacherSQLiteOpenHelper;
 
@@ -40,11 +41,14 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //重置数据库
-      new TeacherSQLiteOpenHelper(Login.this).initDb();
+
 
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
         SharedPreferences spFile = getSharedPreferences(spFileName , MODE_PRIVATE);
+        SharedPreferences.Editor editor = spFile.edit();
+
+        editor.putBoolean(getResources().getString(R.string.isLoaded),false).apply();
+
         boolean isLogin =
                 spFile.getBoolean(getResources().getString(R.string.logined) , false);
 
