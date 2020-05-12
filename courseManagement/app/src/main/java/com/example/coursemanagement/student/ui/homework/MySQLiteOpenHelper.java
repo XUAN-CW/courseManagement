@@ -66,7 +66,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 String accountKey = mContext.getResources().getString(R.string.login_account_name);
                 SharedPreferences spFile = mContext.getSharedPreferences(spFileName , Context.MODE_PRIVATE);
                 String account = spFile.getString(accountKey , null);
-                account="001";
 
                 try {
                     HttpURLConnection homeworkFromDatabase = Network.findStudentAssignment(account);
@@ -79,7 +78,6 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                     String deadline[]=null;
                     String columnDivider="bbbbb";
                     String itemDivider="aaaaa";
-                    String emptyResultSet="|-_-!|";
                     String[] columns=data.split(columnDivider);
 
                     for(int i=0;i<columns.length;i++){

@@ -32,7 +32,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
 //    public static final String DATABASE_NAME = "news--"+new Date()+".db";
-    public static final String DATABASE_NAME = "assignment2.db";
+    public static final String DATABASE_NAME = "assignment.db";
     private Context mContext;
 
     public TeacherSQLiteOpenHelper(Context context) {
@@ -68,7 +68,6 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                 String accountKey = mContext.getResources().getString(R.string.login_account_name);
                 SharedPreferences spFile = mContext.getSharedPreferences(spFileName , Context.MODE_PRIVATE);
                 String account = spFile.getString(accountKey , null);
-                account="101";
 
                 try {
                     HttpURLConnection homeworkFromDatabase = Network.getTeacherAssignment(account);
@@ -154,4 +153,8 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                 }}
         }).start();//启动子线程
     }
+
+
+
+
 }
