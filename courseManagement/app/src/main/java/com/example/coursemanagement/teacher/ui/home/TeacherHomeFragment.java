@@ -77,9 +77,10 @@ public class TeacherHomeFragment extends Fragment {
             teacherNews.setAssignmentTitle(currentTitle);
             teacherNews.setCourse(currentCourse);
             teacherNewsList.add(teacherNews);
+//            System.out.println("currentTitle:"+currentTitle);
         }
         teacherNewsAdapter = new TeacherNewsAdapter(getActivity(), R.layout.list_item, teacherNewsList);
-        System.out.println("newsAdapter"+ teacherNewsAdapter);
+//        System.out.println("newsAdapter"+ teacherNewsAdapter);
     }
 
     public void addItemClickListener() {

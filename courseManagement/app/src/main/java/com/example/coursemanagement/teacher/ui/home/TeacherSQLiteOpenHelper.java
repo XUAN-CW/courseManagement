@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
-    private static final String ASSIGNMENT_TABLE =
+    public static final String ASSIGNMENT_TABLE =
             "CREATE TABLE " +
                     TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE + " (" +
                     TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE + " VARCHAR(50), " +
@@ -27,7 +27,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER + " VARCHAR(50)"+
                     " )";
 
-    private static final String SQL_DELETE_ENTRIES =
+    public static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE;
 
     public static final int DATABASE_VERSION = 1;
@@ -46,7 +46,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
         System.out.println(4444444);
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
-        initDb(sqLiteDatabase);
+        initDb();
 
     }
 
@@ -58,7 +58,10 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    private void initDb(final SQLiteDatabase sqLiteDatabase) {
+    public void initDb() {
+
+        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
+
         System.out.println("initDb---------------");
         new Thread(new Runnable() {//创建子线程
             @Override
@@ -123,6 +126,9 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     length = Math.min(length , course.length);
                     length = Math.min(length , startTime.length);
                     length = Math.min(length , deadline.length);
+
+                    sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+                    sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
 
                     for (int i = 1; i < length; i++) {
                         ContentValues values = new ContentValues();
