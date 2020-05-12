@@ -73,7 +73,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 try {
                     HttpURLConnection homeworkFromDatabase = Network.findStudentAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
-                    System.err.println("收到了\n"+data);
+//                    System.err.println("收到了\n"+data);
                     if(null!=data){
                         String homeworkTitle[]=null;
                         String homeworkContent[]=null;
@@ -119,15 +119,15 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                         for (int i = 1; i < length; i++) {
                             ContentValues values = new ContentValues();
                             values.put(NewsContract.NewsEntry.HOMEWORK_TITLE , homeworkTitle[i]);
-                            System.out.println(homeworkTitle[i]);
+//                            System.out.println(homeworkTitle[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_CONTENT , homeworkContent[i]);
-                            System.out.println(homeworkContent[i]);
+//                            System.out.println(homeworkContent[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_COURSE , course[i]);
-                            System.out.println(course[i]);
+//                            System.out.println(course[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_START_TIME , startTime[i]);
-                            System.out.println(startTime[i]);
+//                            System.out.println(startTime[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_DEADLINE , deadline[i]);
-                            System.out.println(deadline[i]);
+//                            System.out.println(deadline[i]);
                             long r = sqLiteDatabase.insert(
                                     NewsContract.NewsEntry.HOMEWORK_TABLE ,
                                     null ,

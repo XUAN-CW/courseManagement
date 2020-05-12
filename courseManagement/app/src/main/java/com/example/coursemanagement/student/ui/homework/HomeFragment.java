@@ -1,5 +1,6 @@
 package com.example.coursemanagement.student.ui.homework;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +18,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
+import com.example.coursemanagement.Login;
 import com.example.coursemanagement.R;
+import com.example.coursemanagement.SignUp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,6 +84,12 @@ public class HomeFragment extends Fragment {
             String currentCourse = cursor.getString(authorIndex);
             news.setHomeworkTitle(currentTitle);
             news.setCourse(currentCourse);
+            news.setHomeworkContent(cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.HOMEWORK_CONTENT)));
+            news.setDeadline(cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.HOMEWORK_DEADLINE)));
+            news.setStartTime(cursor.getString(cursor.getColumnIndex(NewsContract.NewsEntry.HOMEWORK_START_TIME)));
+
+
+
             newsList.add(news);
 
         }
@@ -104,6 +113,18 @@ public class HomeFragment extends Fragment {
                 String appName = newsList.get(position).getHomeworkTitle();
                 //提示
                 Toast.makeText(getActivity(), "Click:" + appName, Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(getActivity(), StudentShowHomework.class);
+                //将键值对放入 Intent 对象中
+                intent.putExtra(NewsContract.NewsEntry.HOMEWORK_TITLE, newsList.get(position).getHomeworkTitle());
+
+                intent.putExtra(NewsContract.NewsEntry.HOMEWORK_CONTENT, newsList.get(position).getHomeworkContent());
+
+                Toast.makeText(getActivity(), "click:" + appName, Toast.LENGTH_SHORT).show();
+
+                //调用 activity
+                startActivity(intent);
+
                 //////////////////点击移除的代码如下////////////////////
 //                newsList.remove(position);
 //                //更新列表
