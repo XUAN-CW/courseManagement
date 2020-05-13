@@ -12,6 +12,7 @@
         <activity android:name=".SignUp"></activity>
         <activity android:name=".student.ui.Student"></activity>
         <activity android:name=".student.ui.homework.StudentShowHomework"></activity>
+        <activity android:name=".teacher.ui.home.TeacherShowAssignment"></activity>
 <!--        <activity android:name=".teacher.assignment.Assignment"></activity>-->
 <!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
