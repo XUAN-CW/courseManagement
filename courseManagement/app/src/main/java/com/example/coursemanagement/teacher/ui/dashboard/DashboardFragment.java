@@ -1,18 +1,34 @@
 package com.example.coursemanagement.teacher.ui.dashboard;
 
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.coursemanagement.Login;
+import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
+import com.example.coursemanagement.student.ui.Student;
+import com.example.coursemanagement.teacher.ui.Teacher;
 import com.example.coursemanagement.teacher.ui.dashboard.datepicker.CustomDatePicker;
+import com.example.coursemanagement.teacher.ui.home.TeacherNewsContract;
 
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,11 +41,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
     EditText et_title=null;
     EditText et_content=null;
+    View root=null;
+    AlertDialog alertDialog3;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.assign_homework, container, false);
-
+        root = inflater.inflate(R.layout.assign_homework, container, false);
+        setTeacherCourse();
 
         /*
         这个地方要小心，不然 findViewById 会失败
@@ -73,9 +91,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     private void initTimerPicker() {
 //        String beginTime = DateFormatUtils.long2Str(System.currentTimeMillis(), true);
         Date date = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         //创建Calendar实例
-        Calendar cal = Calendar.getInstance();
+        final Calendar cal = Calendar.getInstance();
         cal.setTime(date);   //设置当前时间
         String beginTime=format.format(cal.getTime());
         cal.add(Calendar.YEAR, 3);  //在当前时间基础上加3年
@@ -84,10 +102,78 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         // 通过日期字符串初始化日期，格式请用：yyyy-MM-dd HH:mm
         mTimerPicker = new CustomDatePicker(getActivity(), new CustomDatePicker.Callback() {
             @Override
-            public void onTimeSelected(long timestamp) {
-                System.out.println(String.valueOf(timestamp));
-                System.out.println(et_content.getText());
-                System.out.println(et_title.getText());
+            public void onTimeSelected(final long timestamp) {
+                final String itemDivider="aaaaa";
+                String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+                String teacherCourse = getResources().getString(R.string.teacher_course);
+                SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
+                final String[] items = spFile.getString(teacherCourse , null).split(itemDivider);
+                final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+                alertBuilder.setTitle("选择发布的课程");
+                /**
+                 *第一个参数:弹出框的消息集合，一般为字符串集合
+                 * 第二个参数：默认被选中的，布尔类数组
+                 * 第三个参数：勾选事件监听
+                 */
+                alertBuilder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i, boolean isChecked) {
+                        if (isChecked){
+                            Toast.makeText(getActivity(), "选择" + items[i], Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getActivity(), "取消选择" + items[i], Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                alertBuilder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        String temp="";
+                        String itemDivider="aaaaa";
+                        ListView lv=alertDialog3.getListView();
+                        for (int j = 0; i < items.length; i++) {
+                            if (lv.getCheckedItemPositions().get(i)) {
+                                temp +=lv.getAdapter().getItem(i)+ itemDivider;
+                            }
+                        }
+
+                        final String title=et_title.getText().toString();
+                        final String content=et_content.getText().toString();
+                        System.out.println(temp+title+content+format.format(timestamp));
+                        final String courseNumbers=temp;
+                        new Thread(new Runnable() {//创建子线程
+                            @Override
+                            public void run() {
+                                try {
+                                    HttpURLConnection assignHomework = Network.assignHomework(courseNumbers,title,content,format.format(timestamp));
+                                    if (assignHomework.getHeaderField("status").equals("OK")){
+
+                                    }
+                                    else {
+                                        Looper.prepare();
+                                        Toast.makeText(getActivity(),
+                                                assignHomework.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
+                                    }
+                                }catch (Exception e){
+
+                                }
+                            }
+                        }).start();//启动子线程
+
+
+                        alertDialog3.dismiss();
+                    }
+                });
+
+                alertBuilder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        alertDialog3.dismiss();
+                    }
+                });
+                alertDialog3 = alertBuilder.create();
+                alertDialog3.show();
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭
@@ -105,4 +191,29 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         mTimerPicker.show(mTvSelectedTime.getText().toString());
     }
 
+
+    private void setTeacherCourse(){
+        new Thread(new Runnable() {//创建子线程
+            @Override
+            public void run() {
+
+                String spFileName = getActivity().getResources().getString(R.string.shared_preferences_file_name);
+                String accountKey = getActivity().getResources().getString(R.string.login_account_name);
+                SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , Context.MODE_PRIVATE);
+                String account = spFile.getString(accountKey, null);
+
+                System.out.println("account:"+account);
+                try {
+                    HttpURLConnection homeworkFromDatabase = Network.getTeacherCourse(account);
+                    String course=homeworkFromDatabase.getHeaderField("course");
+                    System.err.println("收到了course:\n"+course);
+
+                    SharedPreferences.Editor editor = spFile.edit();
+                    editor.putString(getActivity().getResources().getString(R.string.teacher_course), course).apply();
+
+                }catch (Exception e){
+
+                }}
+        }).start();//启动子线程
+    }
 }

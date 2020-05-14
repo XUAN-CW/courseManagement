@@ -88,4 +88,31 @@ public final class Network {
         return httpURLConnection;
     }
 
+    public static HttpURLConnection getTeacherCourse(final String jobNumber){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","getTeacherCourse");
+                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+            }
+        });
+        return httpURLConnection;
+    }
+
+
+    public static HttpURLConnection assignHomework(final String courseNumbers, final String title, final String content, final String deadline){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","assignHomework");
+                httpURLConnection.addRequestProperty("courseNumbers",courseNumbers);
+                httpURLConnection.addRequestProperty("title",title);
+                httpURLConnection.addRequestProperty("content",content);
+                httpURLConnection.addRequestProperty("deadline",deadline);
+            }
+        });
+        return httpURLConnection;
+    }
 }
