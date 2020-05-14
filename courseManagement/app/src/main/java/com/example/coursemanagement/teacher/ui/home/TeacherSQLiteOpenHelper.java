@@ -43,7 +43,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        System.out.println(4444444);
+//        System.out.println(4444444);
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
         sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
         initDb();
@@ -54,13 +54,12 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase ,
                           int oldVersion , int newVersion) {
         sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
         onCreate(sqLiteDatabase);
     }
 
 
     public void initDb() {
-
-        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
 
         System.out.println("initDb---------------");
         new Thread(new Runnable() {//创建子线程
@@ -126,6 +125,10 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     length = Math.min(length , course.length);
                     length = Math.min(length , startTime.length);
                     length = Math.min(length , deadline.length);
+
+
+
+                    SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
 
                     sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
                     sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);

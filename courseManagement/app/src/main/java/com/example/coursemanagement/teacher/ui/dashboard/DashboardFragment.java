@@ -1,26 +1,17 @@
 package com.example.coursemanagement.teacher.ui.dashboard;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnticipateOvershootInterpolator;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.teacher.ui.dashboard.datepicker.CustomDatePicker;
-import com.example.coursemanagement.teacher.ui.dashboard.datepicker.DateFormatUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -32,15 +23,29 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
     private TextView mTvSelectedDate, mTvSelectedTime;
     private CustomDatePicker mDatePicker, mTimerPicker;
 
+    EditText et_title=null;
+    EditText et_content=null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.assign_homework, container, false);
 
 
-        EditText et_title=root.findViewById(R.id.assignment_title);
-        EditText et_content=root.findViewById(R.id.assignment_content);
+        /*
+        这个地方要小心，不然 findViewById 会失败
+        错误：
+            et_title=getActivity().findViewById(R.id.assign_homework_title);
+        正确：
+            et_title=root.findViewById(R.id.assign_homework_title);
+         */
 
+        et_title=root.findViewById(R.id.assign_homework_title);
+        et_content=root.findViewById(R.id.assign_homework_content);
+
+        initViews();
+        System.out.println("------"+getActivity().findViewById(R.id.assign_homework_title));
         initTimerPicker();
+
         root.findViewById(R.id.assign_homework_button).setOnClickListener(this);
         mTvSelectedTime = root.findViewById(R.id.assign_homework_button);
 
@@ -48,11 +53,20 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         return root;
     }
 
+    public void initViews(){
+
+
+
+
+
+
+    }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mDatePicker.onDestroy();
+//        mDatePicker.onDestroy();
     }
 
 
@@ -71,7 +85,9 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         mTimerPicker = new CustomDatePicker(getActivity(), new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(long timestamp) {
-//                mTvSelectedTime.setText(DateFormatUtils.long2Str(timestamp, true));
+                System.out.println(String.valueOf(timestamp));
+                System.out.println(et_content.getText());
+                System.out.println(et_title.getText());
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭
