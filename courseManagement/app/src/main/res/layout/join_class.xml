@@ -1,35 +1,60 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="110dp">
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:id="@+id/join_class_1"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <ImageView
+                android:id="@+id/join_class_back"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginBottom="4dp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/ic_arrow_back_black_24dp"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/join_class_EditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:hint="Email/Account"
-            android:inputType="text"
-            android:maxLines="1" />
-        <Button
-            android:layout_below="@id/join_class_EditText"
-            android:id="@+id/join_class_Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:text="join class"
-            android:textColor="@android:color/white" />
+        <LinearLayout
+            android:id="@+id/join_class_2"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:layout_below="@id/join_class_1">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="110dp">
+
+                <EditText
+                    android:id="@+id/join_class_EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:hint="Email/Account"
+                    android:inputType="text"
+                    android:maxLines="1" />
+                <Button
+                    android:layout_below="@id/join_class_EditText"
+                    android:id="@+id/join_class_Button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimary"
+                    android:text="join class"
+                    android:textColor="@android:color/white" />
+            </RelativeLayout>
+        </LinearLayout>
     </RelativeLayout>
-
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
