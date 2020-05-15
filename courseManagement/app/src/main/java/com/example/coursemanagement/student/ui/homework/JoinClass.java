@@ -4,11 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.coursemanagement.Login;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 
@@ -31,12 +34,15 @@ public class JoinClass extends AppCompatActivity {
                     public void run() {
                         try {
                             EditText join_class_EditText=findViewById(R.id.join_class_EditText);
-                            HttpURLConnection homeworkFromDatabase = Network.joinClass(studentNumber,join_class_EditText.getText().toString());
-                            String data=homeworkFromDatabase.getHeaderField("data");
-//                    System.err.println("收到了\n"+data);
-                            if(null!=data){
+                            HttpURLConnection join_class = Network.joinClass(studentNumber,join_class_EditText.getText().toString());
+                            if("OK".equals(join_class.getHeaderField("status"))){
 
-                            }}catch (Exception e){
+                            }
+                            Looper.prepare();
+                            Toast.makeText(JoinClass.this,
+                                    join_class.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                            Looper.loop();
+                            }catch (Exception e){
 
                         }
                     }
