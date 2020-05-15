@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
@@ -36,13 +37,14 @@ public class HomeFragment extends Fragment {
     View view;
 
     ListView list;
-
+    ImageView student_plus_sign=null;
     PopupMenu popupMenu = null;
+    PopupMenu student_add_popup_menu;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.student_homework, null);
-
+        student_plus_sign=view.findViewById(R.id.student_plus_sign);
         new MySQLiteOpenHelper(getActivity()).initDb();
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
 
@@ -52,8 +54,9 @@ public class HomeFragment extends Fragment {
 
         readFromDatabaseAndSetAdapter();
         list = (ListView) view.findViewById(R.id.lv_news_list);
-        list.setAdapter(newsAdapter);
 
+        list.setAdapter(newsAdapter);
+        addPlusSignMenu();
         addItemClickListener();
         return view;
     }
@@ -165,4 +168,36 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+    public void addPlusSignMenu(){
+        student_plus_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("student_plus_sign");
+                student_add_popup_menu = new PopupMenu(getActivity(), v);
+                //将 R.menu.student_popup_menu 菜单资源加载到popup中
+                student_add_popup_menu.getMenuInflater().inflate(R.menu.student_add_popup_menu,student_add_popup_menu.getMenu());
+                //为popupMenu选项添加监听器
+                student_add_popup_menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+//                            case R.id.delete:
+//                                newsList.remove(position);
+//                                //更新列表
+//                                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
+//                                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
+//                                break;
+                            default:
+                                Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+                student_add_popup_menu.show();
+            }
+        });
+    }
+
 }
