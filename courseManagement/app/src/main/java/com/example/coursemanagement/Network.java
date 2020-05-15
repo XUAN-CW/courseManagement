@@ -115,4 +115,19 @@ public final class Network {
         });
         return httpURLConnection;
     }
+
+    public static HttpURLConnection updateAssignment(final String assignmentNumber, final String title, final String content, final String deadline){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","updateAssignment");
+                httpURLConnection.addRequestProperty("assignmentNumber",assignmentNumber);
+                httpURLConnection.addRequestProperty("title",title);
+                httpURLConnection.addRequestProperty("content",content);
+                httpURLConnection.addRequestProperty("deadline",deadline);
+            }
+        });
+        return httpURLConnection;
+    }
 }

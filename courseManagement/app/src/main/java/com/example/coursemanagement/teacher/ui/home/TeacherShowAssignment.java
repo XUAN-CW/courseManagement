@@ -4,17 +4,21 @@ package com.example.coursemanagement.teacher.ui.home;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.teacher.ui.Teacher;
 import com.example.coursemanagement.teacher.ui.dashboard.datepicker.CustomDatePicker;
 
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -29,6 +33,7 @@ public class TeacherShowAssignment extends AppCompatActivity  implements View.On
 
     EditText et_title=null;
     EditText et_content=null;
+    String assignmentNumber;
 
 
     @Override
@@ -60,7 +65,7 @@ public class TeacherShowAssignment extends AppCompatActivity  implements View.On
         Intent intent = getIntent();//获取 Intent 对象
         String title = intent.getStringExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE);//根据键找传过来的
         String content = intent.getStringExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_CONTENT);
-
+        assignmentNumber=intent.getStringExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER);
         et_title.setText(title);
         et_content.setText(content);
     }
@@ -115,7 +120,29 @@ public class TeacherShowAssignment extends AppCompatActivity  implements View.On
         mTimerPicker = new CustomDatePicker(TeacherShowAssignment.this, new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(final long timestamp) {
-                
+                final String title=et_title.getText().toString();
+                final String content=et_content.getText().toString();
+//                System.out.println(temp+title+content+format.format(timestamp));
+//                final String courseNumbers=temp;
+                new Thread(new Runnable() {//创建子线程
+                    @Override
+                    public void run() {
+                        try {
+                            HttpURLConnection assignHomework = Network.updateAssignment(assignmentNumber,title,content,format.format(timestamp));
+                            if (assignHomework.getHeaderField("status").equals("OK")){
+
+                            }
+                            else {
+                                Looper.prepare();
+                                Toast.makeText(TeacherShowAssignment.this,
+                                        assignHomework.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+                        }catch (Exception e){
+
+                        }
+                    }
+                }).start();//启动子线程
             }
         }, beginTime, endTime);
         // 允许点击屏幕或物理返回键关闭

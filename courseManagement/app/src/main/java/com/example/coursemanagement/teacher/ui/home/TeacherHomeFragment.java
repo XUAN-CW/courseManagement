@@ -122,9 +122,8 @@ public class TeacherHomeFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), TeacherShowAssignment.class);
                 //将键值对放入 Intent 对象中
                 intent.putExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE, teacherNewsList.get(position).getAssignmentTitle());
-
                 intent.putExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_CONTENT, teacherNewsList.get(position).getAssignmentContent());
-
+                intent.putExtra(TeacherNewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER,teacherNewsList.get(position).getAssignmentNumber());
                 Toast.makeText(getActivity(), "click:" + appName, Toast.LENGTH_SHORT).show();
 
                 //调用 activity
