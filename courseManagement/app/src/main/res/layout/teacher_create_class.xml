@@ -37,7 +37,17 @@
                 tools:ignore="MissingConstraints">
 
                 <EditText
-                    android:id="@+id/teacher_create_class_EditText"
+                    android:id="@+id/teacher_create_class_class_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:hint="Email/Account"
+                    android:inputType="text"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:layout_below="@id/teacher_create_class_class_name"
+                    android:id="@+id/teacher_create_class_class_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
@@ -45,7 +55,7 @@
                     android:inputType="text"
                     android:maxLines="1" />
                 <Button
-                    android:layout_below="@id/teacher_create_class_EditText"
+                    android:layout_below="@id/teacher_create_class_class_number"
                     android:id="@+id/teacher_create_class_Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -44,8 +44,9 @@ public class CreateClass extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            EditText teacher_create_class_EditText=findViewById(R.id.teacher_create_class_EditText);
-                            HttpURLConnection join_class = Network.joinClass(jobNumber,teacher_create_class_EditText.getText().toString());
+                            EditText teacher_create_class_EditText=findViewById(R.id.teacher_create_class_class_number);
+                            EditText teacher_create_class_class_name=findViewById(R.id.teacher_create_class_class_name);
+                            HttpURLConnection join_class = Network.createClass(jobNumber,teacher_create_class_class_name.getText().toString(),teacher_create_class_EditText.getText().toString());
                             if("OK".equals(join_class.getHeaderField("status"))){
 
                             }

@@ -143,4 +143,18 @@ public final class Network {
         });
         return httpURLConnection;
     }
+
+    public static HttpURLConnection createClass(final String courseNumber,final String name,final String jobNumber ){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","createClass");
+                httpURLConnection.addRequestProperty("courseNumber",courseNumber);
+                httpURLConnection.addRequestProperty("name",name);
+                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+            }
+        });
+        return httpURLConnection;
+    }
 }
