@@ -22,6 +22,7 @@ import android.widget.ListView;
 import com.example.coursemanagement.Login;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.SignUp;
+import com.example.coursemanagement.student.ui.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,12 +184,11 @@ public class HomeFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-//                            case R.id.delete:
-//                                newsList.remove(position);
-//                                //更新列表
-//                                list.setAdapter(newsAdapter);//显示列表, 不会使用缓存的item的视图对象
-//                                newsAdapter.notifyDataSetChanged();//通知更新列表, 使用所有缓存的item的视图对象
-//                                break;
+                            case R.id.join_the_class:
+                                Intent intent = new Intent(getActivity(), JoinClass.class);
+                                //调用 activity
+                                startActivity(intent);
+                                break;
                             default:
                                 Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
                         }

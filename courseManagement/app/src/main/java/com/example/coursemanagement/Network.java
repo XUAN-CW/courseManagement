@@ -130,4 +130,17 @@ public final class Network {
         });
         return httpURLConnection;
     }
+
+    public static HttpURLConnection joinClass(final String studentNumber, final String courseNumber){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","joinClass");
+                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
+                httpURLConnection.addRequestProperty("courseNumber",courseNumber);
+            }
+        });
+        return httpURLConnection;
+    }
 }
