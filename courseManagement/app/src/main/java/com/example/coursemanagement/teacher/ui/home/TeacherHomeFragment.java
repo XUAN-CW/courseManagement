@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -23,7 +25,6 @@ import java.util.List;
 
 import android.view.MenuItem;
 import android.widget.AdapterView;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
@@ -41,10 +42,13 @@ public class TeacherHomeFragment extends Fragment {
 
     PopupMenu popupMenu = null;
 
+    ImageView teacher_assignment_plus_sign=null;
+    PopupMenu teacher_add_popup_menu=null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        teacher_assignment_plus_sign=view.findViewById(R.id.teacher_assignment_plus_sign);
 
         new TeacherSQLiteOpenHelper(getActivity()).initDb();
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
@@ -59,7 +63,7 @@ public class TeacherHomeFragment extends Fragment {
         list.setAdapter(teacherNewsAdapter);
 
         addItemClickListener();
-
+        addPlusSignMenu();
         return view;
     }
 
@@ -169,5 +173,36 @@ public class TeacherHomeFragment extends Fragment {
             }
         });
     }
+
+    public void addPlusSignMenu(){
+        teacher_assignment_plus_sign.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                System.out.println("student_plus_sign");
+                teacher_add_popup_menu = new PopupMenu(getActivity(), v);
+                //将 R.menu.student_popup_menu 菜单资源加载到popup中
+                teacher_add_popup_menu.getMenuInflater().inflate(R.menu.teacher_add_popup_menu,teacher_add_popup_menu.getMenu());
+                //为popupMenu选项添加监听器
+                teacher_add_popup_menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()){
+                            case R.id.create_class_item:
+                                Intent intent = new Intent(getActivity(), CreateClass.class);
+                                //调用 activity
+                                startActivity(intent);
+                                break;
+                            default:
+                                Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
+                        }
+                        return true;
+                    }
+                });
+                teacher_add_popup_menu.show();
+            }
+        });
+    }
+
 
 }
