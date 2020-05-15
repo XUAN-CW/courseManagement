@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment {
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
 
         SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
-        while (!spFile.getBoolean(getResources().getString(R.string.logined) , false)){}
+        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
 
 
         readFromDatabaseAndSetAdapter();

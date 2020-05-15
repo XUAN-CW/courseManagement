@@ -44,18 +44,18 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
 //        System.out.println(4444444);
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
-        initDb();
+//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+//        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
+//        initDb();
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase ,
                           int oldVersion , int newVersion) {
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
-        onCreate(sqLiteDatabase);
+//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+//        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
+//        onCreate(sqLiteDatabase);
     }
 
 

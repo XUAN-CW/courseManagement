@@ -193,6 +193,7 @@ public class Login extends AppCompatActivity {
                                     SharedPreferences.Editor editor = spFile.edit();
                                     //保存身份
                                     editor.putString(getResources().getString(R.string.identity), loginResult.getHeaderField("identity")).apply();
+                                    System.out.println(loginResult.getHeaderField("identity"));
                                     //设置已登录
                                     editor.putBoolean(getResources().getString(R.string.logined),true).apply();
 

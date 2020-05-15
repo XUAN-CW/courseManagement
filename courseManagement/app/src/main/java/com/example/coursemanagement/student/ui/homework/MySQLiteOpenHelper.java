@@ -29,7 +29,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
 //    public static final String DATABASE_NAME = "news--"+new Date()+".db";
-    public static final String DATABASE_NAME = "homework.db";
+    public static final String DATABASE_NAME = "homework2.db";
     private Context mContext;
 
     public MySQLiteOpenHelper(Context context) {
@@ -44,15 +44,15 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
         //sqLiteDatabase.execSQL(SQL_CREATE_ENTRIES);
 //        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
 //        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
-        initDb();
+//        initDb();
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase ,
                           int oldVersion , int newVersion) {
-        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-        onCreate(sqLiteDatabase);
+//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+//        onCreate(sqLiteDatabase);
     }
 
 
@@ -134,6 +134,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                                     values);
                            }
 
+                        sqLiteDatabase.close();
                         SharedPreferences.Editor editor = spFile.edit();
                         editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
 

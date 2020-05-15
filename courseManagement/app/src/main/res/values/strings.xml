@@ -9,7 +9,7 @@
     <string name="sing_up_account">account</string>
     <string name="sing_up_password">password</string>
     <string name="sing_up_button">sgin up and login</string>
-    <string name="isLoaded">loaded</string>
+    <string name="isLoaded">isLoaded</string>
 
     <string name="logined">logined</string>
     <string name="identity">identity</string>
