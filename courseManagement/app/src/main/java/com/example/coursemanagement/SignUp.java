@@ -26,6 +26,7 @@ public class SignUp extends AppCompatActivity {
     private RadioButton sign_up_student;
     private RadioButton sign_up_teacher;
     private Button sign_up_and_login;
+    ImageView sign_up_back;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +36,7 @@ public class SignUp extends AppCompatActivity {
         controlPasswordVisible();
         controlChoose();
         signUpAndLogin();
+        signUpBackBackAddListener();
     }
 
     private void initWidget(){
@@ -43,6 +45,7 @@ public class SignUp extends AppCompatActivity {
         sign_up_and_login = findViewById(R.id.sign_up_and_login);
         sign_up_account = findViewById(R.id.sign_up_account);
         sign_up_pwd = findViewById(R.id.sign_up_pwd);
+        sign_up_back=findViewById(R.id.sign_up_back);
     }
 
     private void controlPasswordVisible(){
@@ -178,6 +181,16 @@ public class SignUp extends AppCompatActivity {
 
     }
 
+    public void signUpBackBackAddListener(){
+        sign_up_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, Login.class);
 
+                //调用 activity
+                startActivity(intent);
+            }
+        });
+    }
 
 }
