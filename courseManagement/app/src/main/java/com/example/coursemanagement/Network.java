@@ -157,4 +157,17 @@ public final class Network {
         });
         return httpURLConnection;
     }
+
+    public static HttpURLConnection deleteAssignment(final String assignmentNumber ){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","deleteAssignment");
+                httpURLConnection.addRequestProperty("assignmentNumber",assignmentNumber);
+            }
+        });
+        return httpURLConnection;
+    }
+
 }

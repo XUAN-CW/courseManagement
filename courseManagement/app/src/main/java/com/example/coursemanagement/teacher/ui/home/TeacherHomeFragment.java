@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -15,11 +17,13 @@ import android.widget.PopupMenu;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
 import com.example.coursemanagement.student.ui.homework.NewsContract;
 import com.example.coursemanagement.student.ui.homework.StudentShowHomework;
 
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -155,7 +159,26 @@ public class TeacherHomeFragment extends Fragment {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()){
-                            case R.id.delete:
+                            case R.id.teacher_delete:
+
+                                new Thread(new Runnable() {//创建子线程
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            HttpURLConnection deleteAssignment = Network.deleteAssignment(teacherNewsList.get(position).getAssignmentNumber());
+                                            if("OK".equals(deleteAssignment.getHeaderField("status"))){
+
+                                            }
+                                            Looper.prepare();
+                                            Toast.makeText(getActivity(),
+                                                    deleteAssignment.getHeaderField("status"), Toast.LENGTH_SHORT).show();
+                                            Looper.loop();
+                                        }catch (Exception e){
+
+                                        }
+                                    }
+                                }).start();//启动子线程
+
                                 teacherNewsList.remove(position);
                                 //更新列表
                                 list.setAdapter(teacherNewsAdapter);//显示列表, 不会使用缓存的item的视图对象
