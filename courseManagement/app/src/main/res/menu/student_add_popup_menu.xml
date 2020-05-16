@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/join_the_class"
-        android:title="join_the_class"/>
+        android:title="加入班级"/>
     <item android:id="@+id/count_the_number_of_homework"
         android:title="统计各科作业"/>
 </menu>

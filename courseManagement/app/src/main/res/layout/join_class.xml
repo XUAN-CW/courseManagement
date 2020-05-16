@@ -43,7 +43,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
-                    android:hint="Email/Account"
+                    android:hint="课号"
                     android:inputType="text"
                     android:maxLines="1" />
                 <Button
@@ -52,7 +52,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/colorPrimary"
-                    android:text="join class"
+                    android:text="加入班级"
                     android:textColor="@android:color/white" />
             </RelativeLayout>
         </LinearLayout>

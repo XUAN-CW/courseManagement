@@ -21,7 +21,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="50dp">
 
         <ImageView
@@ -47,7 +47,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp">
 
         <ImageView
@@ -133,7 +133,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginTop="32dp"
             android:background="@color/colorPrimary"
-            android:text="sign up and login"
+            android:text="sign up"
             android:textColor="@android:color/white" />
     </RelativeLayout>
 </LinearLayout>
