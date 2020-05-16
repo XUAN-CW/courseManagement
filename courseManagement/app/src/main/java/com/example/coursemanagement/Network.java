@@ -170,4 +170,16 @@ public final class Network {
         return httpURLConnection;
     }
 
+    public static HttpURLConnection countTheNumberOfHomework(final String studentNumber ){
+        HttpURLConnection httpURLConnection=null;
+        httpURLConnection = communicate(new StringFlow(){
+            @Override
+            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
+                httpURLConnection.addRequestProperty("operate","countTheNumberOfHomework");
+                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
+            }
+        });
+        return httpURLConnection;
+    }
+
 }

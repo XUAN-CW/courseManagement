@@ -15,6 +15,7 @@
         <activity android:name=".teacher.ui.home.TeacherShowAssignment"></activity>
         <activity android:name=".student.ui.homework.JoinClass"></activity>
         <activity android:name=".teacher.ui.home.CreateClass"></activity>
+        <activity android:name=".student.ui.homework.CountTheNumberOfHomework"></activity>
 <!--        <activity android:name=".teacher.assignment.Assignment"></activity>-->
 <!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
