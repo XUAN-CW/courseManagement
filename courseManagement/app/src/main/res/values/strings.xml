@@ -19,7 +19,7 @@
 <!--    //////////////////////////////////////////////////////////-->
     <string name="student_title_home">Home</string>
     <string name="student_title_dashboard">Dashboard</string>
-    <string name="student_title_notifications">Notifications</string>
+    <string name="student_title_notifications">me</string>
 
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

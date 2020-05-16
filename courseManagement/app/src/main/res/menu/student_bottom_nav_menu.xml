@@ -6,14 +6,14 @@
         android:icon="@drawable/ic_home_black_24dp"
         android:title="@string/student_title_home" />
 
-    <item
-        android:id="@+id/student_navigation_dashboard"
-        android:icon="@drawable/ic_dashboard_black_24dp"
-        android:title="@string/student_title_dashboard" />
+<!--    <item-->
+<!--        android:id="@+id/student_navigation_dashboard"-->
+<!--        android:icon="@drawable/ic_dashboard_black_24dp"-->
+<!--        android:title="@string/student_title_dashboard" />-->
 
     <item
         android:id="@+id/student_navigation_notifications"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_perm_identity_black_24dp"
         android:title="@string/student_title_notifications" />
 
 </menu>
