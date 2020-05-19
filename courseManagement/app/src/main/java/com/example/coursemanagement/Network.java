@@ -23,7 +23,8 @@ public final class Network {
         try {
             //1,找水源--创建URL
 //            URL url = new URL("https://www.baidu.com/");//放网站
-            URL url = new URL("http://10.0.2.2:8080/test_war_exploded/responseDemo1");//放网站
+            URL url = new URL("http://47.102.200.197:8080/courseManagementServer_war_exploded/server");//放网站
+//            URL url = new URL("http://10.0.2.2:8080/courseManagementServer_war_exploded/server");//放网站
             //2,开水闸--openConnection
             httpURLConnection = (HttpURLConnection) url.openConnection();
 
