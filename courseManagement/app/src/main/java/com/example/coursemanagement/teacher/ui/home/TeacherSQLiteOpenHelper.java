@@ -38,24 +38,28 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
     public TeacherSQLiteOpenHelper(Context context) {
         super(context , DATABASE_NAME , null , DATABASE_VERSION);
         mContext = context;
-
     }
 
+    SQLiteDatabase teacherSQLiteDatabase;
+
+//    在getWritableDatabase或getReadableDatabase时，
+//    android会去DB_NAME的数据库是否已经存在，如果存在了onCreate就不会被调用了，
+//    还有就是如果你的版本VERSION比已经存在的新的话，onUpgrade会被调用
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        System.out.println(4444444);
-//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-//        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
-//        initDb();
-
+        System.out.println("-----onCreate");
+        teacherSQLiteDatabase=sqLiteDatabase;
+        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
+        initDb();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase ,
                           int oldVersion , int newVersion) {
-//        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-//        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
-//        onCreate(sqLiteDatabase);
+        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+        sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
+        onCreate(sqLiteDatabase);
     }
 
 
@@ -126,12 +130,8 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     length = Math.min(length , startTime.length);
                     length = Math.min(length , deadline.length);
 
-
-
-                    SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
-
-                    sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-                    sqLiteDatabase.execSQL(ASSIGNMENT_TABLE);
+                    teacherSQLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
+                    teacherSQLiteDatabase.execSQL(ASSIGNMENT_TABLE);
 
                     for (int i = 1; i < length; i++) {
                         ContentValues values = new ContentValues();
@@ -152,7 +152,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE , deadline[i]);
                         System.out.println(deadline[i]);
 
-                        long r = sqLiteDatabase.insert(
+                        long r = teacherSQLiteDatabase.insert(
                                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,
                                 values);
@@ -160,6 +160,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     SharedPreferences.Editor editor = spFile.edit();
                     editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
 
+                    teacherSQLiteDatabase.close();
                 }catch (Exception e){
 
                 }}

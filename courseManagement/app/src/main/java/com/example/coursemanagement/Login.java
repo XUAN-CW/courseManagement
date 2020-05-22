@@ -47,7 +47,6 @@ public class Login extends AppCompatActivity {
         SharedPreferences spFile = getSharedPreferences(spFileName , MODE_PRIVATE);
         SharedPreferences.Editor editor = spFile.edit();
 
-        editor.putBoolean(getResources().getString(R.string.isLoaded),false).apply();
 
         boolean isLogin =
                 spFile.getBoolean(getResources().getString(R.string.logined) , false);
@@ -187,7 +186,9 @@ public class Login extends AppCompatActivity {
                             HttpURLConnection loginResult = Network.login(etAccount.getText().toString(),
                                     etPwd.getText().toString());
                             if (null != loginResult) {
+                                System.out.println("++++++++++++++++++");
                                 if (loginResult.getHeaderField("status").equals("OK")) {
+                                    System.out.println("---------------");
                                     String spFileName = getResources().getString(R.string.shared_preferences_file_name);
                                     SharedPreferences spFile = getSharedPreferences(spFileName, Context.MODE_PRIVATE);
                                     SharedPreferences.Editor editor = spFile.edit();
@@ -230,6 +231,7 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         }catch (Exception e){
+                            Looper.prepare();
                             Toast.makeText(Login.this,
                                     "联网失败", Toast.LENGTH_SHORT).show();
                             Looper.loop();

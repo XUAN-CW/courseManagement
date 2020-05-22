@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.coursemanagement">
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,7 +22,8 @@
 
 <!--        <activity android:name=".Login"></activity>-->
         <activity android:name=".teacher.ui.Teacher"></activity>
-        <activity android:name=".Login">
+        <activity android:name=".Login"
+            android:usesCleartextTraffic="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

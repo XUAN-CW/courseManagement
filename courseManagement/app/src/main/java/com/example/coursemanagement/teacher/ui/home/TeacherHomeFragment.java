@@ -51,19 +51,10 @@ public class TeacherHomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        teacher_assignment_plus_sign=view.findViewById(R.id.teacher_assignment_plus_sign);
-
-        new TeacherSQLiteOpenHelper(getActivity()).initDb();
-        String spFileName = getResources().getString(R.string.shared_preferences_file_name);
-
-        SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
-        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
-
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        initViews();
 
         readFromDatabaseAndSetAdapter();
-        System.out.println("teacher_lv_news_list"+view.findViewById(R.id.teacher_lv_news_list));
-        list = (ListView) view.findViewById(R.id.teacher_lv_news_list);
         list.setAdapter(teacherNewsAdapter);
 
         addItemClickListener();
@@ -71,8 +62,20 @@ public class TeacherHomeFragment extends Fragment {
         return view;
     }
 
+    public void initViews(){
+        teacher_assignment_plus_sign=view.findViewById(R.id.teacher_assignment_plus_sign);
+        list = (ListView) view.findViewById(R.id.teacher_lv_news_list);
+
+
+    }
+
 
     public void readFromDatabaseAndSetAdapter() {
+
+        SharedPreferences spFile =
+                getActivity().getSharedPreferences(getResources().getString(R.string.shared_preferences_file_name),
+                        getActivity().MODE_PRIVATE);
+//        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
         myDbHelper = new TeacherSQLiteOpenHelper(getActivity());
         db = myDbHelper.getReadableDatabase();
         Cursor cursor = db.query(

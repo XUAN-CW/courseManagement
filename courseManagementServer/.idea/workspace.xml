@@ -7,22 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d84bb592-6134-45ac-bda1-2d5e6fde3385" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/lib/javax.annotation.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.ejb.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.jms.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.persistence.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.resource.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.servlet.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.servlet.jsp.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.servlet.jsp.jstl.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/javax.transaction.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Database/ConnectWithDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Database/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/server/CourseManagementServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/lib/mysql-connector-java-8.0.20.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/Network.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/Teacher.java" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/Teacher.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/home/TeacherHomeFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/home/TeacherHomeFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/home/TeacherSQLiteOpenHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../courseManagement/app/src/main/java/com/example/coursemanagement/teacher/ui/home/TeacherSQLiteOpenHelper.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -265,6 +254,7 @@
       <option name="presentableId" value="Default" />
       <updated>1589850410982</updated>
       <workItem from="1589850413600" duration="2955000" />
+      <workItem from="1589943266346" duration="300000" />
     </task>
     <servers />
   </component>
