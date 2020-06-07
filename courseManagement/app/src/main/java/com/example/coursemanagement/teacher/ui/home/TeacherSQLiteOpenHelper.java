@@ -64,7 +64,9 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void initDb() {
+        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
 
+        teacherSQLiteDatabase = sqLiteDatabase;
         System.out.println("initDb---------------");
         new Thread(new Runnable() {//创建子线程
             @Override

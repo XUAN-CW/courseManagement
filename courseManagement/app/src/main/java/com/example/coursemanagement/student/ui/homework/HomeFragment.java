@@ -48,18 +48,18 @@ public class HomeFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.student_homework, null);
+        view = inflater.inflate(R.layout.student_homework, null);
         student_plus_sign=view.findViewById(R.id.student_plus_sign);
         new MySQLiteOpenHelper(getActivity()).initDb();
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
 
         SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
-        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
+//        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
 
 
-        readFromDatabaseAndSetAdapter();
+
         list = (ListView) view.findViewById(R.id.lv_news_list);
-
+        readFromDatabaseAndSetAdapter();
         list.setAdapter(newsAdapter);
         addPlusSignMenu();
         addItemClickListener();

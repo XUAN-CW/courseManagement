@@ -14,6 +14,7 @@ import java.net.HttpURLConnection;
 
 public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
+    SQLiteDatabase studentDatabase=null;
 
     private static final String HOMEWORK_TABLE =
             "CREATE TABLE " +
@@ -29,7 +30,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
 //    public static final String DATABASE_NAME = "news--"+new Date()+".db";
-    public static final String DATABASE_NAME = "homework2.db";
+    public static final String DATABASE_NAME = NewsContract.NewsEntry.HOMEWORK_TABLE+".db";
     private Context mContext;
 
     public MySQLiteOpenHelper(Context context) {
@@ -45,14 +46,17 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 //        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
 //        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
 //        initDb();
-
+        studentDatabase=sqLiteDatabase;
+        studentDatabase.execSQL(SQL_DELETE_ENTRIES);
+        studentDatabase.execSQL(HOMEWORK_TABLE);
+        initDb();
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase ,
                           int oldVersion , int newVersion) {
 //        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-//        onCreate(sqLiteDatabase);
+        onCreate(sqLiteDatabase);
     }
 
 
@@ -60,7 +64,8 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
         final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
 
-        System.out.println("initDb---------------");
+        studentDatabase = sqLiteDatabase;
+        System.out.println("initDb---------------"+studentDatabase);
         new Thread(new Runnable() {//创建子线程
             @Override
             public void run() {
@@ -73,7 +78,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                 try {
                     HttpURLConnection homeworkFromDatabase = Network.findStudentAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
-//                    System.err.println("收到了\n"+data);
+                    System.err.println("收到了\n"+data);
                     if(null!=data){
                         String homeworkTitle[]=null;
                         String homeworkContent[]=null;
@@ -86,7 +91,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
                         for(int i=0;i<columns.length;i++){
                             String[] currColumn=columns[i].split(itemDivider);
-                            System.out.println(currColumn[0]);
+//                            System.out.println(currColumn[0]);
                             if(currColumn[0].equals("title")){
                                 currColumn[0]="homeworkTitle";
                                 homeworkTitle=currColumn;
@@ -114,12 +119,15 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                         length = Math.min(length , startTime.length);
                         length = Math.min(length , deadline.length);
 
-                        sqLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
-                        sqLiteDatabase.execSQL(HOMEWORK_TABLE);
+                        System.out.println(length);
+                        System.out.println("studentDatabase:"+studentDatabase);
+                        studentDatabase.execSQL(SQL_DELETE_ENTRIES);
+                        studentDatabase.execSQL(HOMEWORK_TABLE);
+                        System.out.println("length"+length);
                         for (int i = 1; i < length; i++) {
                             ContentValues values = new ContentValues();
                             values.put(NewsContract.NewsEntry.HOMEWORK_TITLE , homeworkTitle[i]);
-//                            System.out.println(homeworkTitle[i]);
+                            System.out.println("homeworkTitle:"+homeworkTitle[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_CONTENT , homeworkContent[i]);
 //                            System.out.println(homeworkContent[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_COURSE , course[i]);
@@ -127,14 +135,17 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
                             values.put(NewsContract.NewsEntry.HOMEWORK_START_TIME , startTime[i]);
 //                            System.out.println(startTime[i]);
                             values.put(NewsContract.NewsEntry.HOMEWORK_DEADLINE , deadline[i]);
-//                            System.out.println(deadline[i]);
-                            long r = sqLiteDatabase.insert(
+                            System.out.println("deadline"+deadline[i]);
+                            System.out.println(studentDatabase);
+                            System.out.println(values);
+                            long r = studentDatabase.insert(
                                     NewsContract.NewsEntry.HOMEWORK_TABLE ,
                                     null ,
                                     values);
+                            System.out.println(values);
                            }
 
-                        sqLiteDatabase.close();
+                        studentDatabase.close();
                         SharedPreferences.Editor editor = spFile.edit();
                         editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
 
