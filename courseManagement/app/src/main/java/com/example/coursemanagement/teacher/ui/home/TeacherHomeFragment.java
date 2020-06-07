@@ -53,7 +53,7 @@ public class TeacherHomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         initViews();
-
+        new TeacherSQLiteOpenHelper(getActivity()).initDb();
         readFromDatabaseAndSetAdapter();
         list.setAdapter(teacherNewsAdapter);
 

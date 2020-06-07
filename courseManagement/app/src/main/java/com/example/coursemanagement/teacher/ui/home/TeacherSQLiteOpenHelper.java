@@ -68,6 +68,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
         teacherSQLiteDatabase = sqLiteDatabase;
         System.out.println("initDb---------------");
+        System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
         new Thread(new Runnable() {//创建子线程
             @Override
             public void run() {
@@ -139,25 +140,26 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                         ContentValues values = new ContentValues();
 
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE_NUMBER , courseNumber[i]);
-                        System.out.println(courseNumber[i]);
+//                        System.out.println(courseNumber[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_ASSIGNMENT_NUMBER , assignmentNumber[i]);
-                        System.out.println(assignmentNumber[i]);
+//                        System.out.println(assignmentNumber[i]);
 
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE , homeworkTitle[i]);
-                        System.out.println(homeworkTitle[i]);
+//                        System.out.println(homeworkTitle[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_CONTENT , homeworkContent[i]);
-                        System.out.println(homeworkContent[i]);
+//                        System.out.println(homeworkContent[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE , course[i]);
-                        System.out.println(course[i]);
+//                        System.out.println(course[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME , startTime[i]);
-                        System.out.println(startTime[i]);
+//                        System.out.println(startTime[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE , deadline[i]);
-                        System.out.println(deadline[i]);
+//                        System.out.println(deadline[i]);
 
                         long r = teacherSQLiteDatabase.insert(
                                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,
                                 values);
+                        System.out.println(values);
                     }
                     SharedPreferences.Editor editor = spFile.edit();
                     editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
