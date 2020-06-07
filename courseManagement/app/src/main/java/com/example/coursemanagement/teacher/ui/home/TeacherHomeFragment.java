@@ -86,7 +86,7 @@ public class TeacherHomeFragment extends Fragment {
         } catch (Exception e) {
 
         }
-        System.out.println("newsList"+ teacherNewsList);
+        System.out.println("newsList:-----"+ teacherNewsList);
 
         int titleIndex = cursor.getColumnIndex(
                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TITLE);

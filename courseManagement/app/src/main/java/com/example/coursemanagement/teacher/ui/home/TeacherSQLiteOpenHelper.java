@@ -40,7 +40,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
         mContext = context;
     }
 
-    SQLiteDatabase teacherSQLiteDatabase;
+    SQLiteDatabase teacherSQLiteDatabase=null;
 
 //    在getWritableDatabase或getReadableDatabase时，
 //    android会去DB_NAME的数据库是否已经存在，如果存在了onCreate就不会被调用了，
@@ -64,9 +64,10 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void initDb() {
-        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
-
-        teacherSQLiteDatabase = sqLiteDatabase;
+        if (null==teacherSQLiteDatabase) {
+            final SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
+            teacherSQLiteDatabase = sqLiteDatabase;
+        }
         System.out.println("initDb---------------");
         System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
         new Thread(new Runnable() {//创建子线程
@@ -81,7 +82,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                 try {
                     HttpURLConnection homeworkFromDatabase = Network.getTeacherAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
-                    System.err.println("收到了\n"+data);
+                    System.err.println("收到了0\n"+data);
 
                     String homeworkTitle[]=null;
                     String homeworkContent[]=null;
@@ -133,6 +134,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     length = Math.min(length , startTime.length);
                     length = Math.min(length , deadline.length);
 
+
                     teacherSQLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
                     teacherSQLiteDatabase.execSQL(ASSIGNMENT_TABLE);
 
@@ -150,11 +152,11 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 //                        System.out.println(homeworkContent[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE , course[i]);
 //                        System.out.println(course[i]);
-                        values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME , startTime[i]);
+                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME , startTime[i]);
 //                        System.out.println(startTime[i]);
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE , deadline[i]);
 //                        System.out.println(deadline[i]);
-
+                        System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
                         long r = teacherSQLiteDatabase.insert(
                                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,

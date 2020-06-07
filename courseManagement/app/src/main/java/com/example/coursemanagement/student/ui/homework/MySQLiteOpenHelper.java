@@ -61,10 +61,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void initDb() {
-
-        final SQLiteDatabase sqLiteDatabase=SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/"+DATABASE_NAME,null);
-
-        studentDatabase = sqLiteDatabase;
+        if(null==studentDatabase) {
+            final SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
+            studentDatabase = sqLiteDatabase;
+        }
         System.out.println("initDb---------------"+studentDatabase);
         new Thread(new Runnable() {//创建子线程
             @Override

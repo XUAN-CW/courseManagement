@@ -30,17 +30,24 @@ public class Teacher extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        //在这个地方
+        String spFileName = getResources().getString(R.string.shared_preferences_file_name);
+        SharedPreferences spFile = getSharedPreferences(spFileName , MODE_PRIVATE);
+        SharedPreferences.Editor editor = spFile.edit();
+        editor.putBoolean(getResources().getString(R.string.isLoaded),false).apply();
+
+
         System.out.println("com.example.coursemanagement.teacher.ui.Teacher");
         //在这个地方初始化教师的数据库
         SQLiteDatabase db=null;
         TeacherSQLiteOpenHelper myDbHelper = null;
         myDbHelper = new TeacherSQLiteOpenHelper(Teacher.this);
         db = myDbHelper.getReadableDatabase();
+        System.out.println(11111);
 
-        //在这个地方
-        String spFileName = getResources().getString(R.string.shared_preferences_file_name);
-        SharedPreferences spFile = getSharedPreferences(spFileName , MODE_PRIVATE);
-        SharedPreferences.Editor editor = spFile.edit();
-        editor.putBoolean(getResources().getString(R.string.isLoaded),false).apply();
+        new TeacherSQLiteOpenHelper(Teacher.this).initDb();
+
+        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
+
     }
 }
