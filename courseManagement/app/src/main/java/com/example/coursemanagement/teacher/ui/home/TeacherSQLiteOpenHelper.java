@@ -163,13 +163,16 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                                 values);
                         System.out.println(values);
                     }
-                    SharedPreferences.Editor editor = spFile.edit();
-                    editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
+
 
                     teacherSQLiteDatabase.close();
                 }catch (Exception e){
 
-                }}
+                }finally {
+                    SharedPreferences.Editor editor = spFile.edit();
+                    editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();
+                }
+            }
         }).start();//启动子线程
     }
 
