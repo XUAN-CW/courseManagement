@@ -58,15 +58,15 @@ public class StudentSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void initDb() {
-        if(null==studentDatabase) {
-            final SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
-            studentDatabase = sqLiteDatabase;
-        }
-        System.out.println("initDb---------------"+studentDatabase);
+
         new Thread(new Runnable() {//创建子线程
             @Override
             public void run() {
-
+                if(null==studentDatabase) {
+                    SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
+                    studentDatabase = sqLiteDatabase;
+                }
+                System.out.println("initDb---------------"+studentDatabase);
                 String spFileName = mContext.getResources().getString(R.string.shared_preferences_file_name);
                 String accountKey = mContext.getResources().getString(R.string.login_account_name);
                 SharedPreferences spFile = mContext.getSharedPreferences(spFileName , Context.MODE_PRIVATE);

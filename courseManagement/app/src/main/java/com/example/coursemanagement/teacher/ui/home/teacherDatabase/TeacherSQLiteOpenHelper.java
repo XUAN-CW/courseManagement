@@ -68,15 +68,16 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
 
 
     public void initDb() {
-        if (null==teacherSQLiteDatabase) {
-            final SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
-            teacherSQLiteDatabase = sqLiteDatabase;
-        }
-        System.out.println("initDb---------------");
-        System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
+
         new Thread(new Runnable() {//创建子线程
             @Override
             public void run() {
+                if (null==teacherSQLiteDatabase) {
+                    SQLiteDatabase sqLiteDatabase = SQLiteDatabase.openOrCreateDatabase("/data/data/com.example.coursemanagement/databases/" + DATABASE_NAME, null);
+                    teacherSQLiteDatabase = sqLiteDatabase;
+                }
+                System.out.println("initDb---------------");
+                System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
 
                 String spFileName = mContext.getResources().getString(R.string.shared_preferences_file_name);
                 String accountKey = mContext.getResources().getString(R.string.login_account_name);
@@ -87,7 +88,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     HttpURLConnection homeworkFromDatabase = Network.getTeacherAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
                     data= URLDecoder.decode(data,"UTF-8");
-//                    System.err.println("收到了：\n"+data);
+                    System.err.println("收到了：\n"+data);
 
                     Gson gson = new Gson();
                     List<Map<String, String>> listOfMaps = null;
