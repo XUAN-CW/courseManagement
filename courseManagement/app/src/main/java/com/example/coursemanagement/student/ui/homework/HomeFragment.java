@@ -26,8 +26,8 @@ import com.example.coursemanagement.student.ui.homework.studentDatabase.MySQLite
 import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsContract;
-import com.example.coursemanagement.student.ui.homework.studentDatabase.ic_add_black_24dp.CountTheNumberOfHomework;
-import com.example.coursemanagement.student.ui.homework.studentDatabase.ic_add_black_24dp.JoinClass;
+import com.example.coursemanagement.student.ui.homework.ic_add_black_24dp.CountTheNumberOfHomework;
+import com.example.coursemanagement.student.ui.homework.ic_add_black_24dp.JoinClass;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;

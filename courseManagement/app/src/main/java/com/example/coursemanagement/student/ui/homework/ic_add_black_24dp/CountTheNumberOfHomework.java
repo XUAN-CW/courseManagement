@@ -1,4 +1,4 @@
-package com.example.coursemanagement.student.ui.homework.studentDatabase.ic_add_black_24dp;
+package com.example.coursemanagement.student.ui.homework.ic_add_black_24dp;
 
 import android.content.Intent;
 import android.os.Bundle;
