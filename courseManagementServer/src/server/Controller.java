@@ -147,6 +147,7 @@ public class Controller {
                 "course ON (course.courseNumber=assignment.courseNumber)ORDER BY " +
                 "assignmentNumber ASC;";
         ResultSet rs = null;
+
         try {
             rs = database.myExecuteQuery(sql);
         } catch (SQLException e) {
@@ -154,7 +155,7 @@ public class Controller {
         }
         String temp=database.resultSetToString(rs);
         System.out.println(temp);
-        response.addHeader("data",temp);
+        response.addHeader("data",resultSetToJson(rs));
     }
 
     public void getTeacherAssignment(String jobNumber){

@@ -22,7 +22,7 @@ import android.widget.ListView;
 
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.homework.studentDatabase.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.StudentSQLiteOpenHelper;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsContract;
@@ -36,7 +36,7 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
     SQLiteDatabase db = null;
-    MySQLiteOpenHelper myDbHelper = null;
+    StudentSQLiteOpenHelper myDbHelper = null;
 
     List<News> newsList = null;
     ListView lvNewsList = null;
@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.student_homework, null);
         student_plus_sign=view.findViewById(R.id.student_plus_sign);
-        new MySQLiteOpenHelper(getActivity()).initDb();
+        new StudentSQLiteOpenHelper(getActivity()).initDb();
         String spFileName = getResources().getString(R.string.shared_preferences_file_name);
 
         SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
@@ -69,7 +69,7 @@ public class HomeFragment extends Fragment {
     }
 
     public void readFromDatabaseAndSetAdapter() {
-        myDbHelper = new MySQLiteOpenHelper(getActivity());
+        myDbHelper = new StudentSQLiteOpenHelper(getActivity());
         db = myDbHelper.getReadableDatabase();
         Cursor cursor = db.query(
                 NewsContract.NewsEntry.HOMEWORK_TABLE,

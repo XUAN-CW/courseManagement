@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.homework.studentDatabase.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.StudentSQLiteOpenHelper;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,7 +21,7 @@ import java.util.List;
 
 public class Student extends AppCompatActivity{
     SQLiteDatabase db=null;
-    MySQLiteOpenHelper myDbHelper = null;
+    StudentSQLiteOpenHelper myDbHelper = null;
 
     List<News> newsList=null;
     ListView lvNewsList=null;
@@ -51,7 +51,7 @@ public class Student extends AppCompatActivity{
 //        MySQLiteOpenHelper myDbHelper = null;
 //        myDbHelper = new MySQLiteOpenHelper(Student.this);
 //        db = myDbHelper.getReadableDatabase();
-        new MySQLiteOpenHelper(Student.this).initDb();
+        new StudentSQLiteOpenHelper(Student.this).initDb();
 
         //不加载完不进入
 //        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
