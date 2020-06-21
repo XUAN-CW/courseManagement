@@ -1,7 +1,5 @@
-package com.example.coursemanagement.student.ui.homework;
+package com.example.coursemanagement.student.ui.homework.studentDatabase.ic_add_black_24dp;
 
-import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.coursemanagement.Login;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.student.ui.Student;
