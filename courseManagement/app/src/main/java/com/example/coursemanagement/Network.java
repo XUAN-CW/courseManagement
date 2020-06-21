@@ -216,20 +216,4 @@ public final class Network {
         return httpURLConnection;
     }
 
-    public static HttpURLConnection countTheNumberOfHomework(final String studentNumber ){
-        HttpURLConnection httpURLConnection=null;
-        httpURLConnection = communicate(new StringFlow(){
-            @Override
-            public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
-                httpURLConnection.addRequestProperty("operate","countTheNumberOfHomework");
-                try {
-                    httpURLConnection.addRequestProperty("studentNumber",URLEncoder.encode(studentNumber,"UTF-8"));
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        return httpURLConnection;
-    }
-
 }

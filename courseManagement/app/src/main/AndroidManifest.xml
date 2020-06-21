@@ -19,8 +19,7 @@
         <activity android:name=".teacher.ui.home.TeacherShowAssignment"></activity>
         <activity android:name=".student.ui.homework.ic_add_black_24dp.JoinClass"></activity>
         <activity android:name=".teacher.ui.home.ic_add_black_24dp.CreateClass"></activity>
-        <activity android:name=".student.ui.homework.ic_add_black_24dp.CountTheNumberOfHomework"></activity>
-<!--        <activity android:name=".teacher.assignment.Assignment"></activity>-->
+        <!--        <activity android:name=".teacher.assignment.Assignment"></activity>-->
 <!--        <activity android:name=".student.homework.StudentHomework"></activity>-->
 
 <!--        <activity android:name=".Login"></activity>-->

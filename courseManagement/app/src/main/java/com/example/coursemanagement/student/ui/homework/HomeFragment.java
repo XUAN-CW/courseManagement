@@ -3,7 +3,6 @@ package com.example.coursemanagement.student.ui.homework;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,16 +19,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
-import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.StudentSQLiteOpenHelper;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
 import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsContract;
-import com.example.coursemanagement.student.ui.homework.ic_add_black_24dp.CountTheNumberOfHomework;
 import com.example.coursemanagement.student.ui.homework.ic_add_black_24dp.JoinClass;
 
-import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,36 +191,7 @@ public class HomeFragment extends Fragment {
                                 //调用 activity
                                 startActivity(intent);
                                 break;
-                            case  R.id.count_the_number_of_homework:
 
-                                new Thread(new Runnable() {//创建子线程
-                                    @Override
-                                    public void run() {
-                                        try {
-                                            String spFileName = getResources().getString(R.string.shared_preferences_file_name);
-                                            String accountKey = getResources().getString(R.string.login_account_name);
-                                            SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
-                                            String account = spFile.getString(accountKey , null);
-                                            HttpURLConnection countTheNumberOfHomework = Network.countTheNumberOfHomework(account);
-                                            if("OK".equals(countTheNumberOfHomework.getHeaderField("status"))){
-                                                String statisticalResult=countTheNumberOfHomework.getHeaderField("statisticalResult");
-                                                System.out.println("statisticalResult"+statisticalResult);
-                                                Intent gotoCountTheNumberOfHomework = new Intent(getActivity(), CountTheNumberOfHomework.class);
-                                                gotoCountTheNumberOfHomework.putExtra("statisticalResult",statisticalResult);
-                                                //调用 activity
-                                                startActivity(gotoCountTheNumberOfHomework);
-                                            }
-                                            Looper.prepare();
-                                            Toast.makeText(getActivity(),
-                                                    countTheNumberOfHomework.getHeaderField("status"), Toast.LENGTH_SHORT).show();
-                                            Looper.loop();
-                                        }catch (Exception e){
-
-                                        }
-                                    }
-                                }).start();//启动子线程
-
-                                break;
                             default:
                                 Toast.makeText(getActivity(),"you clicked->" + item.getTitle(), Toast.LENGTH_SHORT).show();
                         }
