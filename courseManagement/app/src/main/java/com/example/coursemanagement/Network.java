@@ -6,9 +6,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public final class Network {
     //不许实例化
@@ -23,8 +25,8 @@ public final class Network {
         try {
             //1,找水源--创建URL
 //            URL url = new URL("https://www.baidu.com/");//放网站
-            URL url = new URL("http://47.102.200.197:8080/courseManagementServer_war_exploded/server");//放网站
-//            URL url = new URL("http://10.0.2.2:8080/courseManagementServer_war_exploded/server");//放网站
+//            URL url = new URL("http://47.102.200.197:8080/courseManagementServer_war_exploded/server");//放网站
+            URL url = new URL("http://10.0.2.2:8080/courseManagementServer_war_exploded/server");//放网站
             //2,开水闸--openConnection
             httpURLConnection = (HttpURLConnection) url.openConnection();
 
@@ -43,9 +45,13 @@ public final class Network {
         httpURLConnection = communicate(new StringFlow(){
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
-                httpURLConnection.addRequestProperty("operate","login");
-                httpURLConnection.addRequestProperty("account",account);
-                httpURLConnection.addRequestProperty("password",password);
+                try {
+                    httpURLConnection.addRequestProperty("operate","login");
+                    httpURLConnection.addRequestProperty("account",URLEncoder.encode(account,"UTF-8"));
+                    httpURLConnection.addRequestProperty("password",URLEncoder.encode(password,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -57,9 +63,14 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","signUp");
-                httpURLConnection.addRequestProperty("account",account);
-                httpURLConnection.addRequestProperty("password",password);
-                httpURLConnection.addRequestProperty("identity",identity);
+                try {
+                    httpURLConnection.addRequestProperty("account",URLEncoder.encode(account,"UTF-8"));
+                    httpURLConnection.addRequestProperty("password",URLEncoder.encode(password,"UTF-8"));
+                    httpURLConnection.addRequestProperty("identity",URLEncoder.encode(identity,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         return httpURLConnection;
@@ -71,7 +82,11 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","find student assignment");
-                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
+                try {
+                    httpURLConnection.addRequestProperty("studentNumber",URLEncoder.encode(studentNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -83,7 +98,11 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","getTeacherAssignment");
-                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+                try {
+                    httpURLConnection.addRequestProperty("jobNumber",URLEncoder.encode(jobNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -95,7 +114,11 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","getTeacherCourse");
-                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+                try {
+                    httpURLConnection.addRequestProperty("jobNumber",URLEncoder.encode(jobNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -108,10 +131,14 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","assignHomework");
-                httpURLConnection.addRequestProperty("courseNumbers",courseNumbers);
-                httpURLConnection.addRequestProperty("title",title);
-                httpURLConnection.addRequestProperty("content",content);
-                httpURLConnection.addRequestProperty("deadline",deadline);
+                try {
+                    httpURLConnection.addRequestProperty("courseNumbers",URLEncoder.encode(courseNumbers,"UTF-8"));
+                    httpURLConnection.addRequestProperty("title",URLEncoder.encode(title,"UTF-8"));
+                    httpURLConnection.addRequestProperty("content",URLEncoder.encode(content,"UTF-8"));
+                    httpURLConnection.addRequestProperty("deadline",deadline);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -123,10 +150,15 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","updateAssignment");
-                httpURLConnection.addRequestProperty("assignmentNumber",assignmentNumber);
-                httpURLConnection.addRequestProperty("title",title);
-                httpURLConnection.addRequestProperty("content",content);
-                httpURLConnection.addRequestProperty("deadline",deadline);
+                try {
+                    httpURLConnection.addRequestProperty("assignmentNumber",URLEncoder.encode(assignmentNumber,"UTF-8"));
+
+                    httpURLConnection.addRequestProperty("title",URLEncoder.encode(title,"UTF-8"));
+                    httpURLConnection.addRequestProperty("content",URLEncoder.encode(content,"UTF-8"));
+                    httpURLConnection.addRequestProperty("deadline",deadline);
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -138,8 +170,13 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","joinClass");
-                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
-                httpURLConnection.addRequestProperty("courseNumber",courseNumber);
+                try {
+                    httpURLConnection.addRequestProperty("studentNumber",URLEncoder.encode(studentNumber,"UTF-8"));
+                    httpURLConnection.addRequestProperty("courseNumber",URLEncoder.encode(courseNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
+
             }
         });
         return httpURLConnection;
@@ -151,9 +188,13 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","createClass");
-                httpURLConnection.addRequestProperty("courseNumber",courseNumber);
-                httpURLConnection.addRequestProperty("name",name);
-                httpURLConnection.addRequestProperty("jobNumber",jobNumber);
+                try {
+                    httpURLConnection.addRequestProperty("courseNumber",URLEncoder.encode(courseNumber,"UTF-8"));
+                    httpURLConnection.addRequestProperty("name",URLEncoder.encode(name,"UTF-8"));
+                    httpURLConnection.addRequestProperty("jobNumber",URLEncoder.encode(jobNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -165,7 +206,11 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","deleteAssignment");
-                httpURLConnection.addRequestProperty("assignmentNumber",assignmentNumber);
+                try {
+                    httpURLConnection.addRequestProperty("assignmentNumber",URLEncoder.encode(assignmentNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;
@@ -177,7 +222,11 @@ public final class Network {
             @Override
             public void addMyRequestProperty(HttpURLConnection httpURLConnection) {
                 httpURLConnection.addRequestProperty("operate","countTheNumberOfHomework");
-                httpURLConnection.addRequestProperty("studentNumber",studentNumber);
+                try {
+                    httpURLConnection.addRequestProperty("studentNumber",URLEncoder.encode(studentNumber,"UTF-8"));
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
             }
         });
         return httpURLConnection;

@@ -1,11 +1,17 @@
 package server;
 
 import Database.ConnectWithDatabase;
+import com.google.gson.Gson;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 问题：使用tomcat产生的java.lang.ClassNotFoundException: com.mysql.cj.jdbc.Driver问题
@@ -163,7 +169,7 @@ public class Controller {
         }
         String temp=database.resultSetToString(rs);
         System.out.println(temp);
-        response.addHeader("data",temp);
+        response.addHeader("data",resultSetToJson(rs));
     }
 
 
@@ -288,6 +294,41 @@ public class Controller {
             e.printStackTrace();
         }
         return result;
+    }
+
+    public String resultSetToJson(ResultSet rs){
+        List<Map<String, String>> t = new ArrayList<>();
+
+        if (rs != null) {
+            try {
+                rs.beforeFirst();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            ResultSetMetaData rsmd;
+            try {
+                rsmd = (ResultSetMetaData) rs.getMetaData();
+                while (rs.next()) {
+                    Map<String, String> temp = new HashMap<>();
+                    for (int i = 1; i <= rsmd.getColumnCount(); i++) {
+                        temp.put(rsmd.getColumnName(i),rs.getString(i));
+//                        System.out.println(rsmd.getColumnName(i)+"-----"+rs.getString(i));
+//                        System.out.println("new Gson().toJson(temp) "+new Gson().toJson(temp));
+                    }
+                    t.add(temp);
+                }
+                System.out.println("\n");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+//        System.out.println("------------------------------");
+//        for (Map<String, String> good : t) {
+//
+//            System.out.println("new Gson().toJson(good) : "+new Gson().toJson(good));
+//        }
+//        System.out.println(new Gson().toJson(t));
+        return new Gson().toJson(t);
     }
 
     public void setRequest(HttpServletRequest request) {

@@ -11,6 +11,7 @@ import java.util.Date;
 
 @WebServlet("/server")
 public class CourseManagementServer extends HttpServlet {
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println(new Date());
 
@@ -26,6 +27,7 @@ public class CourseManagementServer extends HttpServlet {
 
 
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         this.doPost(request,response);
     }
