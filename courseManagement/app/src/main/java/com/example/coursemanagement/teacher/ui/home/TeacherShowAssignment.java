@@ -16,7 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.teacher.ui.Teacher;
-import com.example.coursemanagement.teacher.ui.dashboard.datepicker.CustomDatePicker;
+import com.example.coursemanagement.teacher.ui.assignHomework.datepicker.CustomDatePicker;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherNewsContract;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;

@@ -1,4 +1,4 @@
-package com.example.coursemanagement.teacher.ui.home;
+package com.example.coursemanagement.student.ui.homework.studentDatabase;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,22 +11,22 @@ import com.example.coursemanagement.R;
 
 import java.util.List;
 
-public class TeacherNewsAdapter extends ArrayAdapter <TeacherNews> {
+public class NewsAdapter extends ArrayAdapter <News> {
 
-    private List<TeacherNews> mTeacherNewsData;
+    private List<News> mNewsData;
     private Context mContext;
     private int resourceId;
 
-    public TeacherNewsAdapter(Context context , int resourceId , List<TeacherNews> data) {
+    public NewsAdapter(Context context , int resourceId , List<News> data) {
         super(context , resourceId , data);
         this.mContext = context;
-        this.mTeacherNewsData = data;
+        this.mNewsData = data;
         this.resourceId = resourceId;
     }
 
     @Override
     public View getView(int position , View convertView , ViewGroup parent) {
-        TeacherNews teacherNews = getItem(position);//用position来找数据
+        News news = getItem(position);//用position来找数据
 
 //        第一个传入的参数resourse是你想要加载的布局资源。
 //        第二个传入的参数是指当前载入的视图要将要放入在层级结构中的根视图。
@@ -39,8 +39,8 @@ public class TeacherNewsAdapter extends ArrayAdapter <TeacherNews> {
 //        ImageView ivImage = view.findViewById(R.id.iv_image);
 
         //重置控件
-        tvTitle.setText(teacherNews.getAssignmentTitle());
-        tvAuthor.setText(teacherNews.getCourse());
+        tvTitle.setText(news.getHomeworkTitle());
+        tvAuthor.setText(news.getCourse());
 //        ivImage.setImageResource(news.getmImageId());
         return view;//返回 view 以供调用
 

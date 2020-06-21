@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
-import com.example.coursemanagement.student.ui.homework.News;
-import com.example.coursemanagement.student.ui.homework.NewsAdapter;
-import com.example.coursemanagement.student.ui.homework.StudentShowHomework;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;

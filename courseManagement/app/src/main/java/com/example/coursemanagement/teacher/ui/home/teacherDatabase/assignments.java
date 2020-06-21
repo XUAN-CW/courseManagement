@@ -1,6 +1,6 @@
-package com.example.coursemanagement.teacher.ui.home;
+package com.example.coursemanagement.teacher.ui.home.teacherDatabase;
 
-public class TeacherNews {
+public class assignments {
     private String assignmentTitle;
     private String assignmentContent;
     private String course;

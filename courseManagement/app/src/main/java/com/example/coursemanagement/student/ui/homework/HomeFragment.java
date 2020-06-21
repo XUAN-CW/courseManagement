@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -21,11 +20,12 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.widget.ListView;
 
-import com.example.coursemanagement.Login;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.SignUp;
-import com.example.coursemanagement.student.ui.Student;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.MySQLiteOpenHelper;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.News;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsAdapter;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsContract;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;

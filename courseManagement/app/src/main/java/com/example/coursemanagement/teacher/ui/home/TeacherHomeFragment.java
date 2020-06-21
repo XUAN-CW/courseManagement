@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -19,9 +18,10 @@ import androidx.fragment.app.Fragment;
 
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
-import com.example.coursemanagement.student.ui.homework.NewsContract;
-import com.example.coursemanagement.student.ui.homework.StudentShowHomework;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.assignments;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherNewsAdapter;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherNewsContract;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherSQLiteOpenHelper;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -38,7 +38,7 @@ public class TeacherHomeFragment extends Fragment {
 
     SQLiteDatabase db=null;
     TeacherSQLiteOpenHelper myDbHelper = null;
-    List<TeacherNews> teacherNewsList =null;
+    List<assignments> teacherNewsList =null;
     ListView lvNewsList=null;
     TeacherNewsAdapter teacherNewsAdapter =null;
     View view;
@@ -94,7 +94,7 @@ public class TeacherHomeFragment extends Fragment {
                 TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE);
 
         while (cursor.moveToNext()) {
-            TeacherNews teacherNews = new TeacherNews();
+            assignments teacherNews = new assignments();
 
             String currentTitle = cursor.getString(titleIndex);
             String currentCourse = cursor.getString(authorIndex);

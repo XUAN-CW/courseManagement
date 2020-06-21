@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.student.ui.Student;
+import com.example.coursemanagement.student.ui.homework.studentDatabase.NewsContract;
 
 public class StudentShowHomework extends AppCompatActivity {
     @Override

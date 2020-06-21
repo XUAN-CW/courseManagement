@@ -11,7 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.teacher.ui.home.TeacherSQLiteOpenHelper;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherSQLiteOpenHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Teacher extends AppCompatActivity {

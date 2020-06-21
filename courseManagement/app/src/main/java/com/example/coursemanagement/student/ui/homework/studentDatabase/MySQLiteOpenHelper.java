@@ -1,4 +1,4 @@
-package com.example.coursemanagement.student.ui.homework;
+package com.example.coursemanagement.student.ui.homework.studentDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;

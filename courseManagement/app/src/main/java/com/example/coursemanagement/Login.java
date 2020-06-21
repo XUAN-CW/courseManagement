@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Looper;
@@ -20,9 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coursemanagement.student.ui.Student;
-import com.example.coursemanagement.student.ui.homework.MySQLiteOpenHelper;
 import com.example.coursemanagement.teacher.ui.Teacher;
-import com.example.coursemanagement.teacher.ui.home.TeacherSQLiteOpenHelper;
 
 import java.net.HttpURLConnection;
 

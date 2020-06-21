@@ -1,12 +1,9 @@
-package com.example.coursemanagement.teacher.ui.dashboard;
+package com.example.coursemanagement.teacher.ui.assignHomework;
 
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.LayoutInflater;
@@ -20,13 +17,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import com.example.coursemanagement.Login;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
-import com.example.coursemanagement.student.ui.Student;
-import com.example.coursemanagement.teacher.ui.Teacher;
-import com.example.coursemanagement.teacher.ui.dashboard.datepicker.CustomDatePicker;
-import com.example.coursemanagement.teacher.ui.home.TeacherNewsContract;
+import com.example.coursemanagement.teacher.ui.assignHomework.datepicker.CustomDatePicker;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
@@ -34,7 +27,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 
-public class DashboardFragment extends Fragment implements View.OnClickListener{
+public class assignHomeworkFragment extends Fragment implements View.OnClickListener{
 
     private TextView mTvSelectedDate, mTvSelectedTime;
     private CustomDatePicker mDatePicker, mTimerPicker;

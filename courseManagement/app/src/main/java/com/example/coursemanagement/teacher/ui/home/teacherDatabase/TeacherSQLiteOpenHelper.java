@@ -1,4 +1,4 @@
-package com.example.coursemanagement.teacher.ui.home;
+package com.example.coursemanagement.teacher.ui.home.teacherDatabase;
 
 import android.content.ContentValues;
 import android.content.Context;
