@@ -41,35 +41,38 @@ public class Controller {
         if (operate.equals("login")){
             login(request.getHeader("account"),request.getHeader("password"));
         }
-        if (operate.equals("signUp")){
+        else if (operate.equals("signUp")){
             signUp(request.getHeader("account"),request.getHeader("password"),request.getHeader("identity"));
         }
-        if(operate.equals("find student assignment")){
+        else if(operate.equals("find student assignment")){
             findStudentAssignment(request.getHeader("studentNumber"));
         }
-        if(operate.equals("getTeacherAssignment")){
+        else if(operate.equals("getTeacherAssignment")){
             getTeacherAssignment(request.getHeader("jobNumber"));
         }
-        if(operate.equals("getTeacherCourse")){
+        else if(operate.equals("getTeacherCourse")){
             getTeacherCourse(request.getHeader("jobNumber"));
         }
-        if (operate.equals("assignHomework")){
+        else if (operate.equals("assignHomework")){
             assignHomework(request.getHeader("courseNumbers"),request.getHeader("title"),request.getHeader("content"),request.getHeader("deadline"));
         }
-        if (operate.equals("updateAssignment")){
+        else if (operate.equals("updateAssignment")){
             updateAssignment(request.getHeader("assignmentNumber"),request.getHeader("title"),request.getHeader("content"),request.getHeader("deadline"));
         }
-        if (operate.equals("joinClass")){
+        else if (operate.equals("joinClass")){
             joinClass(request.getHeader("studentNumber"),request.getHeader("courseNumber"));
         }
-        if(operate.equals("createClass")){
+        else if(operate.equals("createClass")){
             createClass(request.getHeader("courseNumber"),request.getHeader("name"),request.getHeader("jobNumber"));
         }
-        if(operate.equals("deleteAssignment")){
+        else if(operate.equals("deleteAssignment")){
             deleteAssignment(request.getHeader("assignmentNumber"));
         }
-        if(operate.equals("countTheNumberOfHomework")){
+        else if(operate.equals("countTheNumberOfHomework")){
             countTheNumberOfHomework(request.getHeader("studentNumber"));
+        }
+        else {
+            response.setHeader("status","failure");
         }
     }
 
@@ -77,7 +80,7 @@ public class Controller {
         //在学生表和教师表中查询账号 account
         ResultSet rs = null;
         try {
-            rs = database.myExecuteQuery(	 "SELECT * FROM (SELECT studentNumber as account," +
+            rs = database.myExecuteQuery("SELECT * FROM (SELECT studentNumber as account," +
                     "`password` FROM students UNION ALL SELECT jobNumber as account," +
                     "`password`  FROM teachers) as a WHERE a.account='"+account+"';");
         } catch (SQLException e) {
@@ -94,8 +97,8 @@ public class Controller {
                     }else {
                         rs=database.myExecuteQuery("SELECT * FROM students WHERE " +
                                 "studentNumber='"+account+"';");
-                        database.printResultSet(rs);
-                        System.out.println(isEmptyResultSet(rs));
+//                        database.printResultSet(rs);
+//                        System.out.println(isEmptyResultSet(rs));
                         if (isEmptyResultSet(rs)){
                             response.addHeader("identity","teacher");
                         }else {
@@ -153,8 +156,6 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String temp=database.resultSetToString(rs);
-        System.out.println(temp);
         response.addHeader("data",resultSetToJson(rs));
     }
 
@@ -180,17 +181,16 @@ public class Controller {
         String sql = "SELECT courseNumber FROM course WHERE jobNumber='"+jobNumber+"';";
         String temp="";
         ResultSet rs = null;
+        List<String> teacherCourse = new ArrayList<>();
         try {
             rs = database.myExecuteQuery(sql);
-            System.out.println(temp);
             while (rs.next()) {
-                temp+=rs.getString(1)+database.itemDivider;
+                teacherCourse.add(rs.getString(1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(temp);
-        response.addHeader("course",temp);
+        response.addHeader("course",new Gson().toJson(teacherCourse));
     }
 
 

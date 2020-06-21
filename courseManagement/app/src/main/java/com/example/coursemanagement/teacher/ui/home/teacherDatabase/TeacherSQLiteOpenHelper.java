@@ -87,7 +87,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     HttpURLConnection homeworkFromDatabase = Network.getTeacherAssignment(account);
                     String data=homeworkFromDatabase.getHeaderField("data");
                     data= URLDecoder.decode(data,"UTF-8");
-                    System.err.println("收到了：\n"+data);
+//                    System.err.println("收到了：\n"+data);
 
                     Gson gson = new Gson();
                     List<Map<String, String>> listOfMaps = null;
@@ -109,7 +109,7 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,
                                 values);
-                        System.out.println(values);
+//                        System.out.println(values);
                     }
                     teacherSQLiteDatabase.close();
                 }catch (Exception e){

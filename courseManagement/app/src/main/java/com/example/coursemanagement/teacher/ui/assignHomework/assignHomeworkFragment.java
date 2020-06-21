@@ -20,11 +20,14 @@ import androidx.fragment.app.Fragment;
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
 import com.example.coursemanagement.teacher.ui.assignHomework.datepicker.CustomDatePicker;
+import com.google.gson.Gson;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 public class assignHomeworkFragment extends Fragment implements View.OnClickListener{
@@ -40,7 +43,7 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         root = inflater.inflate(R.layout.assign_homework, container, false);
-        setTeacherCourse();
+        resetTeacherCourse();
 
         /*
         这个地方要小心，不然 findViewById 会失败
@@ -96,11 +99,16 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
         mTimerPicker = new CustomDatePicker(getActivity(), new CustomDatePicker.Callback() {
             @Override
             public void onTimeSelected(final long timestamp) {
-                final String itemDivider="aaaaa";
                 String spFileName = getResources().getString(R.string.shared_preferences_file_name);
                 String teacherCourse = getResources().getString(R.string.teacher_course);
                 SharedPreferences spFile = getActivity().getSharedPreferences(spFileName , getActivity().MODE_PRIVATE);
-                final String[] items = spFile.getString(teacherCourse , null).split(itemDivider);
+
+                List<String> tc = new ArrayList<>();
+                Gson gson = new Gson();
+                tc = gson.fromJson(spFile.getString(teacherCourse , null),tc.getClass());
+                //方式二：使用toArray()方法
+                //list.toArray(T[]  a); 将list转化为你所需要类型的数组
+                final String[] items=tc.toArray(new String[tc.size()]);
                 final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
                 alertBuilder.setTitle("选择发布的课程");
                 /**
@@ -185,7 +193,7 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
     }
 
 
-    private void setTeacherCourse(){
+    private void resetTeacherCourse(){
         new Thread(new Runnable() {//创建子线程
             @Override
             public void run() {
@@ -200,10 +208,8 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
                     HttpURLConnection homeworkFromDatabase = Network.getTeacherCourse(account);
                     String course=homeworkFromDatabase.getHeaderField("course");
                     System.err.println("收到了course:\n"+course);
-
                     SharedPreferences.Editor editor = spFile.edit();
                     editor.putString(getActivity().getResources().getString(R.string.teacher_course), course).apply();
-
                 }catch (Exception e){
 
                 }}
