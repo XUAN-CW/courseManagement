@@ -36,11 +36,13 @@ public class NewsAdapter extends ArrayAdapter <News> {
         //获取控件
         TextView tvTitle = view.findViewById(R.id.tv_title);
         TextView tvAuthor = view.findViewById(R.id.tv_subtitle);
+        TextView time = view.findViewById(R.id.item_time);
 //        ImageView ivImage = view.findViewById(R.id.iv_image);
 
         //重置控件
         tvTitle.setText(news.getHomeworkTitle());
         tvAuthor.setText(news.getCourse());
+        time.setText(news.getDeadline());
 //        ivImage.setImageResource(news.getmImageId());
         return view;//返回 view 以供调用
 
