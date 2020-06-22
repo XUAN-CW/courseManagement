@@ -22,7 +22,9 @@ import com.example.coursemanagement.R;
 import com.example.coursemanagement.teacher.ui.assignHomework.datepicker.CustomDatePicker;
 import com.google.gson.Gson;
 
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -105,7 +107,11 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
 
                 List<String> tc = new ArrayList<>();
                 Gson gson = new Gson();
-                tc = gson.fromJson(spFile.getString(teacherCourse , null),tc.getClass());
+                try {
+                    tc = gson.fromJson(URLDecoder.decode(spFile.getString(teacherCourse , null),"UTF-8"),tc.getClass());
+                } catch (UnsupportedEncodingException e) {
+                    e.printStackTrace();
+                }
                 //方式二：使用toArray()方法
                 //list.toArray(T[]  a); 将list转化为你所需要类型的数组
                 final String[] items=tc.toArray(new String[tc.size()]);

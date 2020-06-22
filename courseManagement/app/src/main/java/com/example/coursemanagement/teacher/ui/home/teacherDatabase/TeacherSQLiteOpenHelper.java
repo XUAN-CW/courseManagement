@@ -93,7 +93,9 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                     Gson gson = new Gson();
                     List<Map<String, String>> listOfMaps = null;
                     listOfMaps = gson.fromJson(data, List.class);
+//                    System.out.println(listOfMaps);
 
+                    System.out.println();
                     teacherSQLiteDatabase.execSQL(SQL_DELETE_ENTRIES);
                     teacherSQLiteDatabase.execSQL(ASSIGNMENT_TABLE);
                     for (Map<String, String> temp: listOfMaps) {
@@ -105,16 +107,15 @@ public class TeacherSQLiteOpenHelper extends SQLiteOpenHelper {
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE , temp.get(TeacherNewsContract.NewsEntry.ASSIGNMENT_COURSE));
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME , temp.get(TeacherNewsContract.NewsEntry.ASSIGNMENT_START_TIME));
                         values.put(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE , temp.get(TeacherNewsContract.NewsEntry.ASSIGNMENT_DEADLINE));
-                        System.out.println("teacherSQLiteDatabase"+teacherSQLiteDatabase);
                         long r = teacherSQLiteDatabase.insert(
                                 TeacherNewsContract.NewsEntry.ASSIGNMENT_TABLE,
                                 null ,
                                 values);
-//                        System.out.println(values);
+                        System.out.println(values);
                     }
                     teacherSQLiteDatabase.close();
                 }catch (Exception e){
-
+                    e.printStackTrace();
                 }finally {
                     SharedPreferences.Editor editor = spFile.edit();
                     editor.putBoolean(mContext.getResources().getString(R.string.isLoaded), true).apply();

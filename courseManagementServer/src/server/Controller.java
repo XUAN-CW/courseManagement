@@ -88,21 +88,21 @@ public class Controller {
         }
         System.out.println(account);
             if(null!=rs && isEmptyResultSet(rs)){
-                response.addHeader("status","account does not exist");
+                response.setHeader("status","account does not exist");
             } else {
                 try {
                     rs.next();
                     if (!password.equals(rs.getString(2))){
-                        response.addHeader("status","incorrect password");
+                        response.setHeader("status","incorrect password");
                     }else {
                         rs=database.myExecuteQuery("SELECT * FROM students WHERE " +
                                 "studentNumber='"+account+"';");
 //                        database.printResultSet(rs);
 //                        System.out.println(isEmptyResultSet(rs));
                         if (isEmptyResultSet(rs)){
-                            response.addHeader("identity","teacher");
+                            response.setHeader("identity","teacher");
                         }else {
-                            response.addHeader("identity","student");
+                            response.setHeader("identity","student");
                             System.out.println("student");
                         }
                     }
@@ -169,9 +169,9 @@ public class Controller {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        String temp=database.resultSetToString(rs);
-        System.out.println(temp);
-        response.addHeader("data",resultSetToJson(rs));
+        String result=resultSetToJson(rs);
+        System.out.println();
+        response.addHeader("data",result);
     }
 
 
@@ -210,6 +210,7 @@ public class Controller {
             database.myExecute("commit;");
 
         }catch (Exception e){
+            e.printStackTrace();
             response.setHeader("status","failure");
         }
 

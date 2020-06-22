@@ -184,6 +184,7 @@ public class Login extends AppCompatActivity {
                                     etPwd.getText().toString());
                             if (null != loginResult) {
                                 System.out.println("++++++++++++++++++");
+                                System.out.println(loginResult.getHeaderField("status"));
                                 if (loginResult.getHeaderField("status").equals("OK")) {
                                     System.out.println("---------------");
                                     String spFileName = getResources().getString(R.string.shared_preferences_file_name);
@@ -228,6 +229,7 @@ public class Login extends AppCompatActivity {
                                 }
                             }
                         }catch (Exception e){
+                            e.printStackTrace();
                             Looper.prepare();
                             Toast.makeText(Login.this,
                                     "联网失败", Toast.LENGTH_SHORT).show();
