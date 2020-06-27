@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="right"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="#c4cbcf" />
         </LinearLayout>
     </RelativeLayout >
 </androidx.cardview.widget.CardView>

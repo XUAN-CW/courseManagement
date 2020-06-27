@@ -30,15 +30,15 @@ public class StudentShowHomework extends AppCompatActivity {
         show_homework_title.setText(title);
         show_homework_content.setText(content);
 
-        Button button=findViewById(R.id.show_homework_back_button);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StudentShowHomework.this, Student.class);
-                //调用 activity
-                startActivity(intent);
-            }
-        });
+//        Button button=findViewById(R.id.show_homework_back_button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(StudentShowHomework.this, Student.class);
+//                //调用 activity
+//                startActivity(intent);
+//            }
+//        });
     }
 
 
