@@ -47,13 +47,9 @@ public class Student extends AppCompatActivity{
         SharedPreferences.Editor editor = spFile.edit();
         editor.putBoolean(getResources().getString(R.string.isLoaded),false).apply();
         //在这个地方初始化学生的数据库
-//        SQLiteDatabase db=null;
-//        MySQLiteOpenHelper myDbHelper = null;
-//        myDbHelper = new MySQLiteOpenHelper(Student.this);
-//        db = myDbHelper.getReadableDatabase();
         new StudentSQLiteOpenHelper(Student.this).initDb();
 
         //不加载完不进入
-//        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
+        while (!spFile.getBoolean(getResources().getString(R.string.isLoaded) , false)){}
     }
 }

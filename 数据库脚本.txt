@@ -1,0 +1,199 @@
+DROP DATABASE IF EXISTS `assignment`;
+CREATE DATABASE assignment  character set utf8;
+USE assignment;
+
+-- 错误：1067 - Invalid default value for 'deadline'
+-- 解决方法来源：https://www.cnblogs.com/wpjamer/p/7057577.html
+-- 解决方法：添加下面这句
+set session sql_mode = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION';
+-- set sql_mode = 'STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+CREATE TABLE students(
+	studentNumber VARCHAR(50) PRIMARY KEY,
+	`name` VARCHAR(50),
+	`password` VARCHAR(50)
+	);
+
+CREATE TABLE teachers(
+	jobNumber VARCHAR(50) PRIMARY KEY,
+	`name` VARCHAR(50),
+	`password` VARCHAR(50)
+	);
+
+CREATE TABLE course(
+	courseNumber VARCHAR(50) PRIMARY KEY,
+	`name` VARCHAR(50) NOT NULL,
+	jobNumber VARCHAR(50)
+	);
+
+CREATE TABLE studentLearning(
+	studentNumber VARCHAR(50),
+	courseNumber VARCHAR(50)
+	);
+
+CREATE TABLE assignment(
+	assignmentNumber int PRIMARY KEY AUTO_INCREMENT,
+	courseNumber VARCHAR(50),
+	title VARCHAR(50),
+	content VARCHAR(500),
+	deadline TIMESTAMP,
+	startTime TIMESTAMP
+
+	);
+
+
+ALTER TABLE course ADD CONSTRAINT c_jn FOREIGN KEY(jobNumber) REFERENCES teachers(jobNumber);
+
+ALTER TABLE studentLearning ADD CONSTRAINT sl_sn FOREIGN KEY(studentNumber) REFERENCES students(studentNumber);
+ALTER TABLE studentLearning ADD CONSTRAINT sl_cn FOREIGN KEY(courseNumber) REFERENCES course(courseNumber);
+
+ALTER TABLE assignment ADD CONSTRAINT a_cn FOREIGN KEY(courseNumber) REFERENCES course(courseNumber);
+
+INSERT INTO students(studentNumber, `name`,`password`) VALUES
+('001', '%E5%AD%A6%E7%94%9F001', 'p1'),
+('002', '%E5%AD%A6%E7%94%9F002', 'p2'),
+('003', '%E5%AD%A6%E7%94%9F003', 'p3'),
+('004', '%E5%AD%A6%E7%94%9F004', 'p4'),
+('005', '%E5%AD%A6%E7%94%9F005', 'p5'),
+('006', '%E5%AD%A6%E7%94%9F006', 'p6'),
+('007', '%E5%AD%A6%E7%94%9F007', 'p7'),
+('008', '%E5%AD%A6%E7%94%9F008', 'p8'),
+('009', '%E5%AD%A6%E7%94%9F009', 'p9'),
+('010', '%E5%AD%A6%E7%94%9F010', 'p10');
+
+INSERT INTO teachers(jobNumber, `name`,`password`) VALUES
+('101', '%E8%80%81%E5%B8%88001', 'p1'),
+('102', '%E8%80%81%E5%B8%88002', 'p2'),
+('103', '%E8%80%81%E5%B8%88003', 'p3'),
+('104', '%E8%80%81%E5%B8%88004', 'p4'),
+('105', '%E8%80%81%E5%B8%88005', 'p5'),
+('106', '%E8%80%81%E5%B8%88006', 'p6'),
+('107', '%E8%80%81%E5%B8%88007', 'p7'),
+('108', '%E8%80%81%E5%B8%88008', 'p8'),
+('109', '%E8%80%81%E5%B8%88009', 'p9'),
+('110', '%E8%80%81%E5%B8%88010', 'p10');
+
+
+INSERT INTO course(courseNumber, `name`,jobNumber) VALUES
+('2001', '%E8%AF%BE%E7%A8%8B001', '101'),
+('2002', '%E8%AF%BE%E7%A8%8B002', '102'),
+('2003', '%E8%AF%BE%E7%A8%8B003', '103'),
+('2004', '%E8%AF%BE%E7%A8%8B004', '104'),
+('2005', '%E8%AF%BE%E7%A8%8B005', '105'),
+('2006', '%E8%AF%BE%E7%A8%8B006', '102'),
+('2007', '%E8%AF%BE%E7%A8%8B007', '105'),
+('2008', '%E8%AF%BE%E7%A8%8B008', '108'),
+('2009', '%E8%AF%BE%E7%A8%8B009', '103'),
+('2010', '%E8%AF%BE%E7%A8%8B010', '109');
+
+INSERT INTO studentLearning(studentNumber, courseNumber) VALUES
+('001', '2001'),
+('002', '2002'),
+('003', '2003'),
+('004', '2005'),
+('005', '2006'),
+('006', '2009'),
+('007', '2004'),
+('008', '2002'),
+('009', '2005'),
+('010', '2009'),
+('001', '2009'),
+('002', '2006'),
+('003', '2009'),
+('004', '2007'),
+('005', '2006'),
+('006', '2006'),
+('007', '2006'),
+('008', '2004'),
+('009', '2004'),
+('010', '2002');
+
+
+
+INSERT INTO assignment(courseNumber, title, content, startTime, deadline) VALUES
+('2001', '%E6%A0%87%E9%A2%9801', '%E5%86%85%E5%AE%B901', NOW(), date_add(NOW(), interval 1 week)),
+('2002', '%E6%A0%87%E9%A2%9802', '%E5%86%85%E5%AE%B902', NOW(), date_add(NOW(), interval 1 week)),
+('2003', '%E6%A0%87%E9%A2%9803', '%E5%86%85%E5%AE%B903', NOW(), date_add(NOW(), interval 1 week)),
+('2005', '%E6%A0%87%E9%A2%9804', '%E5%86%85%E5%AE%B904', NOW(), date_add(NOW(), interval 1 week)),
+('2006', '%E6%A0%87%E9%A2%9805', '%E5%86%85%E5%AE%B905', NOW(), date_add(NOW(), interval 1 week)),
+('2009', '%E6%A0%87%E9%A2%9806', '%E5%86%85%E5%AE%B906', NOW(), date_add(NOW(), interval 1 week)),
+('2004', '%E6%A0%87%E9%A2%9807', '%E5%86%85%E5%AE%B907', NOW(), date_add(NOW(), interval 1 week)),
+('2002', '%E6%A0%87%E9%A2%9808', '%E5%86%85%E5%AE%B908', NOW(), date_add(NOW(), interval 1 week)),
+('2005', '%E6%A0%87%E9%A2%9809', '%E5%86%85%E5%AE%B909', NOW(), date_add(NOW(), interval 1 week)),
+('2009', '%E6%A0%87%E9%A2%9800', '%E5%86%85%E5%AE%B910', NOW(), date_add(NOW(), interval 1 week)),
+('2009', '%E6%A0%87%E9%A2%9811', '%E5%86%85%E5%AE%B911', NOW(), date_add(NOW(), interval 1 week)),
+('2006', '%E6%A0%87%E9%A2%9812', '%E5%86%85%E5%AE%B912', NOW(), date_add(NOW(), interval 1 week)),
+('2009', '%E6%A0%87%E9%A2%9813', '%E5%86%85%E5%AE%B913', NOW(), date_add(NOW(), interval 1 week)),
+('2007', '%E6%A0%87%E9%A2%9814', '%E5%86%85%E5%AE%B914', NOW(), date_add(NOW(), interval 1 week)),
+('2006', '%E6%A0%87%E9%A2%9815', '%E5%86%85%E5%AE%B915', NOW(), date_add(NOW(), interval 1 week)),
+('2006', '%E6%A0%87%E9%A2%9816', '%E5%86%85%E5%AE%B916', NOW(), date_add(NOW(), interval 1 week)),
+('2006', '%E6%A0%87%E9%A2%9817', '%E5%86%85%E5%AE%B917', NOW(), date_add(NOW(), interval 1 week)),
+('2004', '%E6%A0%87%E9%A2%9818', '%E5%86%85%E5%AE%B918', NOW(), date_add(NOW(), interval 1 week)),
+('2004', '%E6%A0%87%E9%A2%9819', '%E5%86%85%E5%AE%B919', NOW(), date_add(NOW(), interval 1 week)),
+('2002', '%E6%A0%87%E9%A2%9820', '%E5%86%85%E5%AE%B920', NOW(), date_add(NOW(), interval 1 week));
+
+
+
+
+
+
+-- --查看学生 001 的当前课程
+-- SELECT * FROM studentLearning WHERE studentNumber = '001';
+-- --查看学生 001 的作业
+-- SELECT * FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber);
+-- --查看 101 老师上的课
+-- SELECT courseNumber FROM course WHERE jobNumber = '101';
+-- -- 101 老师增加了作业
+-- INSERT INTO assignment(courseNumber, title, content, startTime, deadline) VALUE('2001', 'title1000', 'content1000', NOW(), date_add(NOW(), interval 1 week));
+-- --查看学生 001 的作业
+-- SELECT * FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber);
+-- --老师更改了作业提交时间
+-- update assignment set deadline = '2020-05-12 10:35:58';
+-- update assignment set title = '0000', content = '11111', deadline = '2020-05-12 10:35:58'WHERE assignmentNumber = '22';
+-- --查看学生 001 的作业
+-- SELECT * FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber);
+-- --老师删除了作业
+-- DELETE FROM assignment WHERE assignmentNumber = 1;
+-- --查看学生 001 的作业
+-- SELECT `name` AS course, title AS homeworkTitle, content AS homeworkContent, startTime, deadline FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber);
+-- --增加一个学生
+-- INSERT INTO students(studentNumber, `password`) VALUE('1111', '2548');
+-- SELECT * FROM students;
+-- --增加一个老师
+-- INSERT INTO teachers(jobNumber, `password`) VALUE('11115', '2548');
+-- SELECT * FROM students;
+--
+-- --学生的账号密码
+-- SELECT studentNumber as account, `password` FROM students;
+-- --老师的账号密码
+-- SELECT jobNumber as account, `password`  FROM teachers;
+-- --合并学生账号密码和老师账号密码
+-- SELECT studentNumber as account, `password` FROM students UNION ALL
+-- SELECT jobNumber as account, `password`  FROM teachers;
+-- --在老师和学生的账号密码中选出账号为 001 的用户
+-- SELECT * FROM(SELECT studentNumber as account, `password` FROM students UNION ALL SELECT jobNumber as account, `password`  FROM teachers) as a WHERE a.account = '001';
+--
+--
+-- start transaction;
+-- SELECT studentNumber as account, `password` FROM students;
+-- commit;
+--  --更新了课号为 10 的资料
+-- update assignment set title = '0000', content = '11111', deadline = '2020-05-12 10:35:58' WHERE assignmentNumber = '10';
+--
+-- INSERT INTO studentLearning(studentNumber, courseNumber) VALUE('001', '2005');
+--
+-- INSERT INTO course(courseNumber, `name`,jobNumber) VALUE('001', '2005', '101');
+-- INSERT INTO course(courseNumber, `name`,jobNumber) VALUE('101', '2005', '101');
+--
+-- --DELETE FROM assignment WHERE assignmentNumber = 39;
+--
+--
+--
+--
+-- -- --查看学生 001 的作业
+-- SELECT DISTINCT assignmentNumber, `name` AS course, title AS homeworkTitle, content AS homeworkContent, startTime, deadline FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber)ORDER BY assignmentNumber ASC;
+--
+-- --学生 001 的作业分组
+-- SELECT courseNumber, course, COUNT(*) FROM(SELECT DISTINCT assignmentNumber, course.courseNumber, `name` AS course, title AS homeworkTitle, content AS homeworkContent, startTime, deadline FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber)) as aa GROUP BY courseNumber, aa.course;
+--
+-- --CREATE VIEW a AS SELECT courseNumber, course, COUNT(*) FROM(SELECT DISTINCT assignmentNumber, course.courseNumber, `name` AS course, title AS homeworkTitle, content AS homeworkContent, startTime, deadline FROM assignment JOIN studentLearning ON(studentLearning.studentNumber = '001' AND assignment.courseNumber = studentLearning.courseNumber) JOIN course ON(course.courseNumber = assignment.courseNumber)) as aa GROUP BY courseNumber, aa.course;
