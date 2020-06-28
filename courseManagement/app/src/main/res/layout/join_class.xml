@@ -8,28 +8,27 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/join_class_1"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-            <ImageView
-                android:id="@+id/join_class_back"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginBottom="4dp"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/ic_arrow_back_black_24dp"/>
-        </LinearLayout>
+<!--        <LinearLayout-->
+<!--            android:id="@+id/join_class_1"-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_width="fill_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1">-->
+<!--            <ImageView-->
+<!--                android:id="@+id/join_class_back"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="32dp"-->
+<!--                android:layout_marginBottom="4dp"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:src="@drawable/ic_arrow_back_black_24dp"/>-->
+<!--        </LinearLayout>-->
 
         <LinearLayout
             android:id="@+id/join_class_2"
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
-            android:layout_below="@id/join_class_1">
+            android:layout_weight="1">
 
             <RelativeLayout
                 android:layout_width="match_parent"

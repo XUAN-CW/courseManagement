@@ -26,10 +26,10 @@ public class JoinClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.join_class);
         join_class_Button=findViewById(R.id.join_class_Button);
-        join_class_back=findViewById(R.id.join_class_back);
+//        join_class_back=findViewById(R.id.join_class_back);
 
         joinClassButtonAddListener();
-        joinClassBackAddListener();
+//        joinClassBackAddListener();
     }
     
     public void joinClassButtonAddListener(){
@@ -64,15 +64,15 @@ public class JoinClass extends AppCompatActivity {
         });
     }
 
-    public void joinClassBackAddListener(){
-        join_class_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(JoinClass.this, Student.class);
-
-                //调用 activity
-                startActivity(intent);
-            }
-        });
-    }
+//    public void joinClassBackAddListener(){
+//        join_class_back.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(JoinClass.this, Student.class);
+//
+//                //调用 activity
+//                startActivity(intent);
+//            }
+//        });
+//    }
 }
