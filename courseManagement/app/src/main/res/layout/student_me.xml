@@ -6,13 +6,8 @@
     android:layout_height="match_parent">
     <Button
         android:id="@+id/student_me_quit_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="32dp"
-        android:background="@color/colorPrimary"
+        tools:ignore="MissingConstraints"
         android:text="退出登录"
-        android:textColor="@android:color/white"
-        tools:ignore="MissingConstraints" />
+        style="@style/me_quit_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

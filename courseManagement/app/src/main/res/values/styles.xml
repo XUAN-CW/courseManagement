@@ -15,4 +15,12 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowBackground">@color/date_picker_bg</item>
     </style>
+
+    <style name="me_quit_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>
