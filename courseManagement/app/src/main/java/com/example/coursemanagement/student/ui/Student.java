@@ -37,7 +37,7 @@ public class Student extends AppCompatActivity{
                 R.id.student_navigation_home, R.id.student_navigation_dashboard, R.id.student_navigation_notifications)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.student_nav_host_fragment);
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
         System.out.println("com.example.coursemanagement.student.ui.student");
