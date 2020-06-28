@@ -30,6 +30,8 @@
             android:layout_height="match_parent">
             <TextView
                 android:id="@+id/show_homework_title"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
@@ -42,6 +44,8 @@
             <TextView
                 android:id="@+id/show_homework_content"
                 android:layout_width="match_parent"
+                android:layout_marginTop="10sp"
+                android:layout_marginLeft="10sp"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/show_homework_title"
                 android:layout_marginStart="0dp"
