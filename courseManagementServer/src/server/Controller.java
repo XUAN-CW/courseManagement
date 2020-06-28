@@ -148,7 +148,7 @@ public class Controller {
                 "studentLearning ON (studentLearning.studentNumber='"+studentNumber+"' AND " +
                 "assignment.courseNumber=studentLearning.courseNumber) JOIN " +
                 "course ON (course.courseNumber=assignment.courseNumber)ORDER BY " +
-                "assignmentNumber ASC;";
+                "deadline ASC;";
         ResultSet rs = null;
 
         try {
