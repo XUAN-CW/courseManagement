@@ -19,7 +19,9 @@ import androidx.fragment.app.Fragment;
 
 import com.example.coursemanagement.Network;
 import com.example.coursemanagement.R;
+import com.example.coursemanagement.teacher.ui.Teacher;
 import com.example.coursemanagement.teacher.ui.assignHomework.datepicker.CustomDatePicker;
+import com.example.coursemanagement.teacher.ui.home.teacherDatabase.TeacherSQLiteOpenHelper;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
@@ -116,7 +118,7 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
                 //list.toArray(T[]  a); 将list转化为你所需要类型的数组
                 final String[] items=tc.toArray(new String[tc.size()]);
                 final AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
-                alertBuilder.setTitle("选择发布的课程");
+                alertBuilder.setTitle("选择发布的课号");
                 /**
                  *第一个参数:弹出框的消息集合，一般为字符串集合
                  * 第二个参数：默认被选中的，布尔类数组
@@ -154,7 +156,11 @@ public class assignHomeworkFragment extends Fragment implements View.OnClickList
                                 try {
                                     HttpURLConnection assignHomework = Network.assignHomework(courseNumbers,title,content,format.format(timestamp));
                                     if (assignHomework.getHeaderField("status").equals("OK")){
-
+                                        new TeacherSQLiteOpenHelper(getActivity()).initDb();
+                                        Looper.prepare();
+                                        Toast.makeText(getActivity(),
+                                               "发布成功！", Toast.LENGTH_SHORT).show();
+                                        Looper.loop();
                                     }
                                     else {
                                         Looper.prepare();
