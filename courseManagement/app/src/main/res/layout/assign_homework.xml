@@ -36,8 +36,9 @@
             android:id="@+id/assign_homework_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
+                android:textSize="18sp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:hint="title"
             android:inputType="text"
             android:maxLines="1"/>
@@ -51,12 +52,13 @@
             android:layout_below="@id/assign_homework_centre">
             <EditText
                 android:id="@+id/assign_homework_content"
+                android:gravity="top"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/assignment_title"
                 android:layout_marginStart="5dp"
                 android:layout_marginEnd="5dp"
-                android:hint="assignment_content"
+                android:hint="assignment content"
                 android:inputType="text"
                 android:maxLines="1" />
         </LinearLayout>
